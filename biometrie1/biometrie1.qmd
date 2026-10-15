@@ -1,0 +1,157 @@
+---
+title: "Biometrie I"
+author: "Benedikt Schmid"
+format: html
+toc: true
+---
+
+# Einführung
+
+## Relevante Journals
+
+[Statistics in Medicine](https://onlinelibrary.wiley.com/journal/10970258)
+
+[Biometrical Journal](https://onlinelibrary.wiley.com/journal/15214036)
+
+[Journal of Statistical Software](https://www.jstatsoft.org/index) hier auch oft Publikation von R packages, z.B. [BayesMultiMode: Bayesian Inference in R](https://www.jstatsoft.org/article/view/v116i03)
+
+## Modellierung in der Biostatistik
+
+::: {.callout-important}
+
+Modelle sind stets Vereinfachung der Realität
+
+:::
+
+Modelle haben Voraussetzungen; meist sind diese nicht empirisch zu überprüfen.
+
+## Test
+
+$$ \bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i $$
+# Grundprinzipien des statistischen Testens
+
+Bei einem binären Experiment ist die Wahrscheinlichkeit der korrekten Zuordnung durch Zufall gleich 50%. Beispiel: Entscheidung ob zwei abgebildete Menschen jeweils Geschwister oder Doppelgänger sind.
+Ab wann wäre man überzeugt, dass eine Methode die Zuordnung sicherer trifft als der Zufall? 9/16? 10/16? 11/16?
+
+P: Grundgesamtheit
+
+$\hat{p}$: Stichprobe
+
+Statistische Tests versuchen, aus $\hat{p}$ Aussagen über P zu tätigen
+
+## Test-Hypothesen
+
+$H_0$: Nullhypothese. Die Wahrscheinlichkeit, dass man die Zuordnung richtig trifft, ist ≤0.5
+$H_1$: Wahrscheinlichkeit, dass die Zuordnung richtig ist, ist >0.5
+
+Jeder statistische Test fragt letztendlich "Wie wahrscheinlich ist mein beobachtetes Ergebnis unter der Annahme der Nullhypothese?". 
+
+## Binomialverteilung
+
+B(x|n,p) = $\binom{n}{x} p^x (1-p)^{n-x}$;
+n: Anzahl der unabhängigen Versuche
+p: Erfolgschance bei einem Versuch
+x: Anzahl der Erfolge
+
+Binomialkoeffizient $\binom{n}{k}$ = $\frac{n!}{k!(n-k)!}$
+
+## p-Wert
+
+Die Wahrscheinlichkeit, den in der Stichprobe beobachteten Wert (oder einen noch extremeren in Richtung Alternativhypothese) zu beobachten, wenn in Wahrheit die Nullhypothese wahr ist.
+
+p-Wert einer Binomialverteilung
+
+
+```{r}
+#| execute: true
+
+
+res <- binom.test(9, 16, p = 0.5)
+res$p.value
+
+```
+
+## Das Prinzip des statistischen Tests
+
+::: {.callout-note}
+
+Eine Hypothese ist eine Aussage, die entweder richtig oder falsch sein kann. Eine dritte Möglichkeit gibt es nicht.
+
+Ja/Nein-Fragestellungen können leicht in eine Hypothese umformuliert werden.
+
+:::
+
+$H_0$ und $H_1$ müssen zusammen den gesamten Ereignisraum $\Omega$ abdecken.
+
+::: {.callout-important}
+
+Die Aussage, die gezeigt werden soll, muss als Alternativhypothese $H_1$ formuliert sein!
+
+:::
+
+Der statistische Test entscheidet, ob $H_0$ abgelehnt werden kann oder nicht. $H_0$ wird abgelehnt, wenn der p-Wert ≤ dem Signifikanzniveau ist.
+
+## Fehler 1. und 2. Art
+
+::: {.list-table}
+
+- - 
+  - H0 gilt
+  - H1 gilt
+- - H0 wird abgelehnt
+  - Fehler 1. Art
+  - richtige Testentscheidung
+
+:::
+
+## Punktschätzung
+
+Aus dem Beispiel der Zuordnung von zwei Personen: Wie groß ist der Anteil der ricchtig zugeordneten Paaren?
+
+$\hat{p} = \frac{9}{16} = \frac{563}{1000} = 56.3%$
+
+Wie viel Information liefert der Punnktschätzer $\hat{p}$ über den wahren Wert $p$?
+
+## Konfidenzintervall
+
+Das zufällige Konfidenzintervall überdeckt den wahren Parameter in der Grundgesamtheit mit einer vorgegebenen Wahrscheinlichkeit von $1 - \alpha$
+
+Formel für das approximative Konfidenzintervall:
+
+$\hat{p} \pm z_\frac{\alpha}{2} \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$
+
+Je schmaler das Konfidenzintervall, desto präziser die Schätzung. Je höher die Fallzahl, desto kleiner das Konfidenzintervall.
+
+Es gibt auch noch andere Formeln, z.B. nach Agresti-Coull (1998)
+
+## Bericht / Publikation
+
+Ein guter Bericht nennt:
+
+* betrachtete Grundgesamtheit
+* Fallzahl
+* statistischer Test
+* Signifikanzniveau $\alpha$
+* p-Wert
+* Angabe eines Konfidenzintervalls für den wahren Parameter
+* Fallzahlplanung:
+  + angenommener klinisch relevanter Unterschied
+  + Fehler 2. Art $\beta$ bzw. Power $1 - \beta$
+
+# z-Test und t-Test für gepaarte und ungepaarte Stichproben
+
+## z-Test
+
+Der z-Test setzt eine Normalverteilung der Stichprobe voraus. Auf Grund des zentralen Grenzwertsatzes kann bei *ausreichend großen Stichproben* annähernd Normalverteilung angenommen werden. Zudem muss die **Varianz der Grundgesamtheit** bekannt sein. Diese ist de facto nie bekannt, daher ist der Test eigentlich selten anwendbar.
+
+## t-Test
+
+Der t-Test löst das Problem der unbekannten Varianz in der Grundgesamtheit durch die Einführung der t-Verteilung. Hier kann über die Stichprobe die Varianz geschätzt werden. Die t-Verteilung nähert sich mit steigender Fallzahl (bzw. steigenden Freiheitsgraden $n-1$) der Normalverteilung an.
+
+Das Konfidenzintervall kann analog zur Binomialverteilung über die t-Verteilung berechnet werden.
+
+::: {.callout-note}
+
+Sowohl z-Test als auch t-Test unterscheiden zwischen verbundenen und nicht verbundenen Stichproben.
+
+:::
