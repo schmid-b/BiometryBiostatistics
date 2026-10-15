@@ -19,9 +19,7 @@ Modelle sind stets Vereinfachung der Realität
 
 Modelle haben Voraussetzungen; meist sind diese nicht empirisch zu überprüfen.
 
-### Test
 
-$$ \bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i $$
 ## Grundprinzipien des statistischen Testens
 
 Bei einem binären Experiment ist die Wahrscheinlichkeit der korrekten Zuordnung durch Zufall gleich 50%. Beispiel: Entscheidung ob zwei abgebildete Menschen jeweils Geschwister oder Doppelgänger sind.
@@ -157,3 +155,31 @@ Sowohl z-Test als auch t-Test unterscheiden zwischen verbundenen und nicht verbu
 * Fisher's exakter Test
 * Relatives Risiko
 * Odds Ratio
+
+### $\chi^2$ Test
+
+Berechnen der Teststatistik mit der Formel $\chi^2 = \sum \frac{n \cdot (a\cdot d - b\cdot c)^2}{(a+b)\cdot(c+d)\cdot(a+c)\cdot(b+d)}$ und vergleichen des Wertes mit der kritischen Schranke zum gesetzten Signifikanzniveau. Für 5% z.B. 3.841 (Quadrat der entsprechnden Normalverteilung).
+
+Ist der Wert der größer, dann ist p ≤ Signifikanzniveau.
+
+#### Voraussetzungen für den $\chi^2$ Test
+Beträgt die erwartete Häufigkeit in jeder Zelle mindestens 1, so ist die Approximation durch $\chi^2$ valide.
+
+Wenn dies nicht gegeben ist, sind verschiedene andere Möglichkeiten gegeben.
+
+::: {.callout-warning}
+
+Fisher's exakter Test ist übermäßig konservativ und sollte praktisch nie angewendet werden.
+
+:::
+
+Alternativen sind Tests aus der Gruppe der *unconditional exact tests*
+
+### Konfidenzintervall für den Effekt $p1 - p1$
+
+Auch hier gibt es approximative zweiseitige Konfidenzintervalle mit verschieden robusten Berechnungsmethoden.
+
+### Absolute Risikoreduktion
+
+Schätzung des Unterschieds zwischen den Ereigniswahrscheinlichkeiten = **absolute Risikoreduktion**.
+

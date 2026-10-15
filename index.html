@@ -123,7 +123,9 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#relevante-journals" id="toc-relevante-journals" class="nav-link" data-scroll-target="#relevante-journals">Relevante Journals</a></li>
   <li><a href="#modellierung-in-der-biostatistik" id="toc-modellierung-in-der-biostatistik" class="nav-link" data-scroll-target="#modellierung-in-der-biostatistik">Modellierung in der Biostatistik</a></li>
-  <li><a href="#test" id="toc-test" class="nav-link" data-scroll-target="#test">Test</a></li>
+  </ul></li>
+  <li><a href="#grundprinzipien-des-statistischen-testens" id="toc-grundprinzipien-des-statistischen-testens" class="nav-link" data-scroll-target="#grundprinzipien-des-statistischen-testens">Grundprinzipien des statistischen Testens</a>
+  <ul class="collapse">
   <li><a href="#test-hypothesen" id="toc-test-hypothesen" class="nav-link" data-scroll-target="#test-hypothesen">Test-Hypothesen</a></li>
   <li><a href="#binomialverteilung" id="toc-binomialverteilung" class="nav-link" data-scroll-target="#binomialverteilung">Binomialverteilung</a></li>
   <li><a href="#p-wert" id="toc-p-wert" class="nav-link" data-scroll-target="#p-wert">p-Wert</a></li>
@@ -138,7 +140,12 @@ window.Quarto = {
   <li><a href="#z-test" id="toc-z-test" class="nav-link" data-scroll-target="#z-test">z-Test</a></li>
   <li><a href="#t-test" id="toc-t-test" class="nav-link" data-scroll-target="#t-test">t-Test</a></li>
   </ul></li>
-  <li><a href="#tests-und-risikomaße-für-vierfeldertafeln" id="toc-tests-und-risikomaße-für-vierfeldertafeln" class="nav-link" data-scroll-target="#tests-und-risikomaße-für-vierfeldertafeln">Tests und Risikomaße für Vierfeldertafeln</a></li>
+  <li><a href="#tests-und-risikomaße-für-vierfeldertafeln" id="toc-tests-und-risikomaße-für-vierfeldertafeln" class="nav-link" data-scroll-target="#tests-und-risikomaße-für-vierfeldertafeln">Tests und Risikomaße für Vierfeldertafeln</a>
+  <ul class="collapse">
+  <li><a href="#chi2-test" id="toc-chi2-test" class="nav-link" data-scroll-target="#chi2-test"><span class="math inline">\(\chi^2\)</span> Test</a></li>
+  <li><a href="#konfidenzintervall-für-den-effekt-p1---p1" id="toc-konfidenzintervall-für-den-effekt-p1---p1" class="nav-link" data-scroll-target="#konfidenzintervall-für-den-effekt-p1---p1">Konfidenzintervall für den Effekt <span class="math inline">\(p1 - p1\)</span></a></li>
+  <li><a href="#absolute-risikoreduktion" id="toc-absolute-risikoreduktion" class="nav-link" data-scroll-target="#absolute-risikoreduktion">Absolute Risikoreduktion</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -198,14 +205,13 @@ Important
 </div>
 <p>Modelle haben Voraussetzungen; meist sind diese nicht empirisch zu überprüfen.</p>
 </section>
-<section id="test" class="level3">
-<h3 class="anchored" data-anchor-id="test">Test</h3>
-<p><span class="math display">\[ \bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i \]</span> ## Grundprinzipien des statistischen Testens</p>
+</section>
+<section id="grundprinzipien-des-statistischen-testens" class="level2">
+<h2 class="anchored" data-anchor-id="grundprinzipien-des-statistischen-testens">Grundprinzipien des statistischen Testens</h2>
 <p>Bei einem binären Experiment ist die Wahrscheinlichkeit der korrekten Zuordnung durch Zufall gleich 50%. Beispiel: Entscheidung ob zwei abgebildete Menschen jeweils Geschwister oder Doppelgänger sind. Ab wann wäre man überzeugt, dass eine Methode die Zuordnung sicherer trifft als der Zufall? 9/16? 10/16? 11/16?</p>
 <p>P: Grundgesamtheit</p>
 <p><span class="math inline">\(\hat{p}\)</span>: Stichprobe</p>
 <p>Statistische Tests versuchen, aus <span class="math inline">\(\hat{p}\)</span> Aussagen über P zu tätigen</p>
-</section>
 <section id="test-hypothesen" class="level3">
 <h3 class="anchored" data-anchor-id="test-hypothesen">Test-Hypothesen</h3>
 <p><span class="math inline">\(H_0\)</span>: Nullhypothese. Die Wahrscheinlichkeit, dass man die Zuordnung richtig trifft, ist ≤0.5 <span class="math inline">\(H_1\)</span>: Wahrscheinlichkeit, dass die Zuordnung richtig ist, ist &gt;0.5</p>
@@ -345,6 +351,38 @@ Note
 <li>Relatives Risiko</li>
 <li>Odds Ratio</li>
 </ul>
+<section id="chi2-test" class="level3">
+<h3 class="anchored" data-anchor-id="chi2-test"><span class="math inline">\(\chi^2\)</span> Test</h3>
+<p>Berechnen der Teststatistik mit der Formel <span class="math inline">\(\chi^2 = \sum \frac{n \cdot (a\cdot d - b\cdot c)^2}{(a+b)\cdot(c+d)\cdot(a+c)\cdot(b+d)}\)</span> und vergleichen des Wertes mit der kritischen Schranke zum gesetzten Signifikanzniveau. Für 5% z.B. 3.841 (Quadrat der entsprechnden Normalverteilung).</p>
+<p>Ist der Wert der größer, dann ist p ≤ Signifikanzniveau.</p>
+<section id="voraussetzungen-für-den-chi2-test" class="level4">
+<h4 class="anchored" data-anchor-id="voraussetzungen-für-den-chi2-test">Voraussetzungen für den <span class="math inline">\(\chi^2\)</span> Test</h4>
+<p>Beträgt die erwartete Häufigkeit in jeder Zelle mindestens 1, so ist die Approximation durch <span class="math inline">\(\chi^2\)</span> valide.</p>
+<p>Wenn dies nicht gegeben ist, sind verschiedene andere Möglichkeiten gegeben.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Fisher’s exakter Test ist übermäßig konservativ und sollte praktisch nie angewendet werden.</p>
+</div>
+</div>
+<p>Alternativen sind Tests aus der Gruppe der <em>unconditional exact tests</em></p>
+</section>
+</section>
+<section id="konfidenzintervall-für-den-effekt-p1---p1" class="level3">
+<h3 class="anchored" data-anchor-id="konfidenzintervall-für-den-effekt-p1---p1">Konfidenzintervall für den Effekt <span class="math inline">\(p1 - p1\)</span></h3>
+<p>Auch hier gibt es approximative zweiseitige Konfidenzintervalle mit verschieden robusten Berechnungsmethoden.</p>
+</section>
+<section id="absolute-risikoreduktion" class="level3">
+<h3 class="anchored" data-anchor-id="absolute-risikoreduktion">Absolute Risikoreduktion</h3>
+<p>Schätzung des Unterschieds zwischen den Ereigniswahrscheinlichkeiten = <strong>absolute Risikoreduktion</strong>.</p>
+</section>
 </section>
 </section>
 
