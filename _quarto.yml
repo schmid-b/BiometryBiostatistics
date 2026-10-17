@@ -1,4 +1,8 @@
 project:
   type: website
 website:
-  title: "Medical Biometry / Biostatistic"
+  title: "Medical Biometry / Biostatistics"
+  sidebar:
+    style: docked
+    contents:
+      - index.qmd
