@@ -146,6 +146,27 @@ window.Quarto = {
   <li><a href="#konfidenzintervall-für-den-effekt-p1---p1" id="toc-konfidenzintervall-für-den-effekt-p1---p1" class="nav-link" data-scroll-target="#konfidenzintervall-für-den-effekt-p1---p1">Konfidenzintervall für den Effekt <span class="math inline">\(p1 - p1\)</span></a></li>
   <li><a href="#absolute-risikoreduktion" id="toc-absolute-risikoreduktion" class="nav-link" data-scroll-target="#absolute-risikoreduktion">Absolute Risikoreduktion</a></li>
   </ul></li>
+  <li><a href="#kategorielle-variablen" id="toc-kategorielle-variablen" class="nav-link" data-scroll-target="#kategorielle-variablen">Kategorielle Variablen</a>
+  <ul class="collapse">
+  <li><a href="#quantitative-maße-zu-kategoriellen-variablen" id="toc-quantitative-maße-zu-kategoriellen-variablen" class="nav-link" data-scroll-target="#quantitative-maße-zu-kategoriellen-variablen">Quantitative Maße zu kategoriellen Variablen</a></li>
+  <li><a href="#x2-tafel-und-abhängige-daten" id="toc-x2-tafel-und-abhängige-daten" class="nav-link" data-scroll-target="#x2-tafel-und-abhängige-daten">2x2-Tafel und abhängige Daten</a></li>
+  <li><a href="#simpson-paradoxon" id="toc-simpson-paradoxon" class="nav-link" data-scroll-target="#simpson-paradoxon">Simpson-Paradoxon</a></li>
+  <li><a href="#stratifizierte-2x2-tafeln-2x2xh" id="toc-stratifizierte-2x2-tafeln-2x2xh" class="nav-link" data-scroll-target="#stratifizierte-2x2-tafeln-2x2xh">Stratifizierte 2x2-Tafeln: 2x2xH</a></li>
+  <li><a href="#x-c-tafel-mit-ordinaler-spaltenvariable" id="toc-x-c-tafel-mit-ordinaler-spaltenvariable" class="nav-link" data-scroll-target="#x-c-tafel-mit-ordinaler-spaltenvariable">2 x c Tafel mit ordinaler Spaltenvariable</a></li>
+  </ul></li>
+  <li><a href="#normalverteilung" id="toc-normalverteilung" class="nav-link" data-scroll-target="#normalverteilung">Normalverteilung</a>
+  <ul class="collapse">
+  <li><a href="#standardnormalverteilung" id="toc-standardnormalverteilung" class="nav-link" data-scroll-target="#standardnormalverteilung">Standardnormalverteilung</a></li>
+  <li><a href="#bedeutung-der-normalverteilung" id="toc-bedeutung-der-normalverteilung" class="nav-link" data-scroll-target="#bedeutung-der-normalverteilung">Bedeutung der Normalverteilung</a></li>
+  <li><a href="#normalverteilung-als-grenzverteilung-binomialverteilung" id="toc-normalverteilung-als-grenzverteilung-binomialverteilung" class="nav-link" data-scroll-target="#normalverteilung-als-grenzverteilung-binomialverteilung">Normalverteilung als Grenzverteilung: Binomialverteilung</a></li>
+  <li><a href="#zentraler-grenzwertsatz-central-limit-theorem" id="toc-zentraler-grenzwertsatz-central-limit-theorem" class="nav-link" data-scroll-target="#zentraler-grenzwertsatz-central-limit-theorem">Zentraler Grenzwertsatz (central limit theorem)</a></li>
+  <li><a href="#annahme-der-normalverteilung" id="toc-annahme-der-normalverteilung" class="nav-link" data-scroll-target="#annahme-der-normalverteilung">Annahme der Normalverteilung</a></li>
+  </ul></li>
+  <li><a href="#nichtparametrische-verfahren" id="toc-nichtparametrische-verfahren" class="nav-link" data-scroll-target="#nichtparametrische-verfahren">Nichtparametrische Verfahren</a>
+  <ul class="collapse">
+  <li><a href="#unverbundene-stichproben" id="toc-unverbundene-stichproben" class="nav-link" data-scroll-target="#unverbundene-stichproben">Unverbundene Stichproben</a></li>
+  <li><a href="#verbundene-stichproben" id="toc-verbundene-stichproben" class="nav-link" data-scroll-target="#verbundene-stichproben">Verbundene Stichproben</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -351,6 +372,45 @@ Note
 <li>Relatives Risiko</li>
 <li>Odds Ratio</li>
 </ul>
+<div id="tbl-vierfelder" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-vierfelder-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Schematische Vierfeldertafel
+</figcaption>
+<div aria-describedby="tbl-vierfelder-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;">Ereignis (+)</th>
+<th style="text-align: center;">kein Ereignis (−)</th>
+<th style="text-align: center;">Summe</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Gruppe 1</strong></td>
+<td style="text-align: center;"><span class="math inline">\(a\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(b\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(a+b\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Gruppe 2</strong></td>
+<td style="text-align: center;"><span class="math inline">\(c\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(d\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(c+d\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>Summe</strong></td>
+<td style="text-align: center;"><span class="math inline">\(a+c\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(b+d\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
 <section id="chi2-test" class="level3">
 <h3 class="anchored" data-anchor-id="chi2-test"><span class="math inline">\(\chi^2\)</span> Test</h3>
 <p>Berechnen der Teststatistik mit der Formel <span class="math inline">\(\chi^2 = \sum \frac{n \cdot (a\cdot d - b\cdot c)^2}{(a+b)\cdot(c+d)\cdot(a+c)\cdot(b+d)}\)</span> und vergleichen des Wertes mit der kritischen Schranke zum gesetzten Signifikanzniveau. Für 5% z.B. 3.841 (Quadrat der entsprechnden Normalverteilung).</p>
@@ -372,7 +432,7 @@ Warning
 <p>Fisher’s exakter Test ist übermäßig konservativ und sollte praktisch nie angewendet werden.</p>
 </div>
 </div>
-<p>Alternativen sind Tests aus der Gruppe der <em>unconditional exact tests</em></p>
+<p>Alternativen sind Tests aus der Gruppe der <em>unconditional exact tests</em>, z.B. <a href="https://en.wikipedia.org/wiki/Boschloo%27s_test">Boschloo’s Test</a></p>
 </section>
 </section>
 <section id="konfidenzintervall-für-den-effekt-p1---p1" class="level3">
@@ -382,6 +442,390 @@ Warning
 <section id="absolute-risikoreduktion" class="level3">
 <h3 class="anchored" data-anchor-id="absolute-risikoreduktion">Absolute Risikoreduktion</h3>
 <p>Schätzung des Unterschieds zwischen den Ereigniswahrscheinlichkeiten = <strong>absolute Risikoreduktion</strong>.</p>
+</section>
+</section>
+<section id="kategorielle-variablen" class="level2">
+<h2 class="anchored" data-anchor-id="kategorielle-variablen">Kategorielle Variablen</h2>
+<ul>
+<li>nominale Variablen
+<ul>
+<li>Spezialfall: dichotome Variablen</li>
+</ul></li>
+<li>ordinale Variablen</li>
+</ul>
+<p>Die Verteilung ist definiert durch die Liste der möglichen Ausprägungen zusammen mit den Eintrittswahrscheinlichkeiten</p>
+<section id="quantitative-maße-zu-kategoriellen-variablen" class="level3">
+<h3 class="anchored" data-anchor-id="quantitative-maße-zu-kategoriellen-variablen">Quantitative Maße zu kategoriellen Variablen</h3>
+<p><span class="math display">\[OR = \frac{O_1}{O_2} = \frac{a\cdot d}{b \cdot c}\]</span> <span class="math display">\[RR = \frac{p1}{p2} = \frac{\frac{a}{a+b}}{\frac{c}{c+d}}\]</span></p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Übung</p>
+</div>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./biometrie1/images/uebung_2x2.png" class="img-fluid figure-img"></p>
+<figcaption>Aufgabenstellung</figcaption>
+</figure>
+</div>
+<div class="cell" data-execute="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">49</span>,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                <span class="dv">11</span>, <span class="dv">39</span>),</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="at">Gruppe =</span> <span class="fu">c</span>(<span class="st">"non-smoker"</span>, <span class="st">"smoker"</span>),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">Ergebnis =</span> <span class="fu">c</span>(<span class="st">"cancer"</span>, <span class="st">"no cancer"</span>)))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tab, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test
+
+data:  tab
+X-squared = 9.4697, df = 1, p-value = 0.002089</code></pre>
+</div>
+</div>
+<p>Für den <span class="math inline">\(\chi^2\)</span>-Test ist die Reihenfolge in den Reichen und Zeilen der Vierfeldertafel unerheblich. Bei RR und OR ist hierauf zu achten. Üblich wäre z.B. in den Zeilen die Gruppen aufzuführen (exponiert, nicht exponiert) und in den Spalten die Ereignisse (Ereignis, kein Ereignis)</p>
+</section>
+<section id="x2-tafel-und-abhängige-daten" class="level3">
+<h3 class="anchored" data-anchor-id="x2-tafel-und-abhängige-daten">2x2-Tafel und abhängige Daten</h3>
+<p>z.B. zutreffend bei der Untersuchung von Messwiederholungen dichotomer Merkmale. Hier wird nicht Pearson’s <span class="math inline">\(\chi^2\)</span>-Test verwendet sondern der nach McNemar.</p>
+<p>Aus der 2x2-Tafel ergibt sich dann die Frage, ob <span class="math display">\[p_1 = \frac{a+b}{n} = \frac{a+c}{n} = p_2\]</span></p>
+<p><span class="math inline">\(Q_M = \frac{(b-c)^2}{(b+c)} \sim \chi^2(1)\)</span></p>
+</section>
+<section id="simpson-paradoxon" class="level3">
+<h3 class="anchored" data-anchor-id="simpson-paradoxon">Simpson-Paradoxon</h3>
+<p>In manchen Fällen haben Störgrößen Einfluss auf die scheinbaren Verteilungen. Stratifizierung kann hier helfen, falsche Schlüsse zu ziehen.</p>
+<p>z.B. kann es hilfreich sein, Ergebnisse aus verschiedenen Zentren getrennt auszuwerten anstatt eine gepoolte Analyse vorzunehmen.</p>
+</section>
+<section id="stratifizierte-2x2-tafeln-2x2xh" class="level3">
+<h3 class="anchored" data-anchor-id="stratifizierte-2x2-tafeln-2x2xh">Stratifizierte 2x2-Tafeln: 2x2xH</h3>
+<p>Eine Möglichkeit, stratifizierte 2x2-Tafeln auszuwerten, ist der Mantel-Haenszel-Test</p>
+<ul>
+<li><p>Abweichung vom Erwartungswert: <span class="math display">\[ g_h = n_{h11} - n_{h1\cdot} \cdot \frac{n_{h \cdot 1}}{n_{h\cdot \cdot}}\]</span></p></li>
+<li><p>Varianz: <span class="math display">\[ V(n_{hij}|H_0) = \frac{n_{h1\cdot}n_{h\cdot 1}n_{h2\cdot}n_{h\cdot 2}}{n_{h\cdot \cdot}^2 \cdot (n_{h\cdot\cdot}-1)}= V_{h11} \]</span></p></li>
+<li><p>Teststatistik</p></li>
+</ul>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Übung</p>
+</div>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./biometrie1/images/uebung_MH.png" class="img-fluid figure-img"></p>
+<figcaption>Aufgabenstellung</figcaption>
+</figure>
+</div>
+<p>getrennte <span class="math inline">\(\chi^2-Tests\)</span></p>
+<div class="cell" data-execute="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tab1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">23</span>, <span class="dv">7</span>,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                <span class="dv">29</span>, <span class="dv">24</span>),</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="at">Gruppe =</span> <span class="fu">c</span>(<span class="st">"conservative"</span>, <span class="st">"novel"</span>),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">Ergebnis =</span> <span class="fu">c</span>(<span class="st">"yes"</span>, <span class="st">"no"</span>)))</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>tab2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">29</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                <span class="dv">15</span>, <span class="dv">19</span>),</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="at">Gruppe =</span> <span class="fu">c</span>(<span class="st">"conservative"</span>, <span class="st">"novel"</span>),</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                              <span class="at">Ergebnis =</span> <span class="fu">c</span>(<span class="st">"yes"</span>, <span class="st">"no"</span>)))</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tab1, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test
+
+data:  tab1
+X-squared = 3.9443, df = 1, p-value = 0.04703</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tab2, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test
+
+data:  tab2
+X-squared = 5.9272, df = 1, p-value = 0.01491</code></pre>
+</div>
+</div>
+<p>Mantel-Haenszel-Test</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Qmh <span class="ot">&lt;-</span> ((<span class="dv">23-30</span><span class="sc">*</span>(<span class="dv">52</span><span class="sc">/</span><span class="dv">83</span>))<span class="sc">+</span>(<span class="dv">6-35</span><span class="sc">*</span>(<span class="dv">21</span><span class="sc">/</span><span class="dv">69</span>)))<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span>( (<span class="dv">30</span><span class="sc">*</span><span class="dv">52</span><span class="sc">*</span><span class="dv">53</span><span class="sc">*</span><span class="dv">31</span>)<span class="sc">/</span>((<span class="dv">83</span><span class="sc">^</span><span class="dv">2</span>)<span class="sc">*</span>(<span class="dv">83-1</span>)) <span class="sc">+</span> (<span class="dv">35</span><span class="sc">*</span><span class="dv">21</span><span class="sc">*</span><span class="dv">34</span><span class="sc">*</span><span class="dv">48</span>)<span class="sc">/</span>((<span class="dv">69</span><span class="sc">^</span><span class="dv">2</span>)<span class="sc">*</span>(<span class="dv">69-1</span>)))</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>Qmh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.02428024</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>tab_strata <span class="ot">&lt;-</span> <span class="fu">array</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">23</span>, <span class="dv">29</span>, <span class="dv">7</span>, <span class="dv">24</span>,    <span class="co"># Stratum 1 (column-wise: a, c, b, d)</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">6</span>, <span class="dv">15</span>, <span class="dv">29</span>, <span class="dv">19</span>),   <span class="co"># Stratum 2</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">dim =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>),</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="at">Gruppe   =</span> <span class="fu">c</span>(<span class="st">"conservative"</span>, <span class="st">"novel"</span>),</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Ergebnis =</span> <span class="fu">c</span>(<span class="st">"yes"</span>, <span class="st">"no"</span>),</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Stratum  =</span> <span class="fu">c</span>(<span class="st">"female"</span>, <span class="st">"male"</span>))</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">mantelhaen.test</span>(tab_strata, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Mantel-Haenszel chi-squared test without continuity correction
+
+data:  tab_strata
+Mantel-Haenszel X-squared = 0.02428, df = 1, p-value = 0.8762
+alternative hypothesis: true common odds ratio is not equal to 1
+95 percent confidence interval:
+ 0.4850789 1.8561163
+sample estimates:
+common odds ratio 
+        0.9488745 </code></pre>
+</div>
+</div>
+<p>Das beobachtete Ergebnis ergibt sich aus der Tatsache, dass die beobachteten Effekte in den beiden Gruppen in die jeweils entgegengesetzte Richtung gehen und sich dann in der globalen Betrachtung aufheben.</p>
+</section>
+<section id="x-c-tafel-mit-ordinaler-spaltenvariable" class="level3">
+<h3 class="anchored" data-anchor-id="x-c-tafel-mit-ordinaler-spaltenvariable">2 x c Tafel mit ordinaler Spaltenvariable</h3>
+<p>Prinzipiell ist ein gewühnlicher <span class="math inline">\(\chi^2\)</span>-Test möglich, jedoch ignoriert dieser die ordinale Struktur der Daten.<br>
+Eine Lösung ist die <em>mean score statistic</em> <span class="math inline">\(Q_s\)</span></p>
+<p>Alternativ ist hier auch der <em>Mann-Whitney-U-Test</em> möglich</p>
+<p>Angewandt auf stratifizierte ordinale Daten kann die <em>extended Mantel-Haenszel mean score statistic</em> <span class="math inline">\(Q_{SMH}\)</span> berechnet werden.</p>
+</section>
+</section>
+<section id="normalverteilung" class="level2">
+<h2 class="anchored" data-anchor-id="normalverteilung">Normalverteilung</h2>
+<p>Die Normalverteilung <span class="math inline">\(N(\mu, \sigma^2)\)</span> wird durch zwei Parameter vollstädig bestimmt.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Übung</p>
+</div>
+</div>
+</div>
+<p>Zeichnen Sie die Verteilung für <span class="math inline">\(N(0,1), N(0,4), N(0,0.5), N(2,1)\)</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Verteilungsfunktion</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="standardnormalverteilung" class="level3">
+<h3 class="anchored" data-anchor-id="standardnormalverteilung">Standardnormalverteilung</h3>
+<p><span class="math display">\[\mu = 0,\sigma^2 = 1 \]</span> Man kann jede beliebige Normalverteilung in eine Standardnormalverteilung transformieren:</p>
+<p><span class="math display">\[ X \sim N(\mu, \sigma^2) \to Z = (\frac{X-\mu}{\sigma}) \sim N(0,1) \]</span></p>
+<p>Übung zur Standardnormalverteilung</p>
+<p><span class="math display">\[\mu = 6.01, \sigma = 1.24\]</span> 1. Wie groß ist der Anteil in der Bevölkerung mit einem Cholesterinwert über 7 mmol/l?</p>
+<p><span class="math display">\[P(X &gt; 7) = 1-P(X ≤ 7) = 1- P(Z ≤ \frac{7-6.01}{1.24}) = 1 - P(Z ≤ 0.798)\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">7</span>, <span class="at">mean =</span> <span class="fl">6.01</span>, <span class="at">sd =</span> <span class="fl">1.24</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2123229</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Welches ist die untere Cholesterinwertgrenze für die Personen mit den 5% höchsten Cholesterinwerten?</li>
+</ol>
+<p><span class="math display">\[ z_0.95 \to P(Z ≤ 1.645) \Rightarrow X ≤ 1.645 \cdot 1.24 + 6.01 = 8.05\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.95</span>, <span class="at">mean =</span> <span class="fl">6.01</span>, <span class="at">sd =</span> <span class="fl">1.24</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 8.049618</code></pre>
+</div>
+</div>
+<ol start="3" type="1">
+<li>In welchem Bereich liegen die mittleren 90% der Cholesterinwerte in der Bevölkerung?</li>
+</ol>
+<p><span class="math display">\[ z_0.95 \to P(Z ≤ -1.645) \Rightarrow X ≤ -1.645 \cdot 1.24 + 6.01 = 3.97 \]</span> <span class="math display">\[ z_0.95 \to P(Z ≤ -1.645) \Rightarrow X ≤ +1.645 \cdot 1.24 + 6.01 = 8.05 \]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>), <span class="at">mean =</span> <span class="fl">6.01</span>, <span class="at">sd =</span> <span class="fl">1.24</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.970382 8.049618</code></pre>
+</div>
+</div>
+</section>
+<section id="bedeutung-der-normalverteilung" class="level3">
+<h3 class="anchored" data-anchor-id="bedeutung-der-normalverteilung">Bedeutung der Normalverteilung</h3>
+<ul>
+<li>übliche Messwertverteilung in Populationen</li>
+<li>Grenzwertverteilung for die Binomialverteilung und andere Verteilungen → Zentraler Grenzwertsatz</li>
+</ul>
+</section>
+<section id="normalverteilung-als-grenzverteilung-binomialverteilung" class="level3">
+<h3 class="anchored" data-anchor-id="normalverteilung-als-grenzverteilung-binomialverteilung">Normalverteilung als Grenzverteilung: Binomialverteilung</h3>
+<p><span class="math display">\[ X \sim Bin(n,p) \]</span></p>
+<p>Diese Approximation ist anwendbar, falls <span class="math display">\[ n \cdot p \cdot (1-p) ≥ 9\]</span></p>
+<p>Die Approximation erfolgt dann über <span class="math display">\[ E(X) = n \cdot p \]</span> und <span class="math display">\[ Var(X) = n \cdot p \cdot (1-p) \]</span></p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Übung</p>
+</div>
+</div>
+</div>
+<p>n = 5 und n = 20; p = 0.05</p>
+<ol type="1">
+<li>Erwartungswert</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">*</span><span class="fl">0.05</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.25</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="dv">20</span><span class="sc">*</span><span class="fl">0.05</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Varianz</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">*</span><span class="fl">0.05</span><span class="sc">*</span>(<span class="dv">1</span><span class="fl">-0.05</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2375</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="dv">20</span><span class="sc">*</span><span class="fl">0.05</span><span class="sc">*</span>(<span class="dv">1</span><span class="fl">-0.05</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.95</code></pre>
+</div>
+</div>
+</section>
+<section id="zentraler-grenzwertsatz-central-limit-theorem" class="level3">
+<h3 class="anchored" data-anchor-id="zentraler-grenzwertsatz-central-limit-theorem">Zentraler Grenzwertsatz (central limit theorem)</h3>
+<p>Die Verteilungsfunktions von <span class="math inline">\(Z_n\)</span> für <span class="math inline">\(n \to \infty\)</span> konvergiert gegen die Verteilungsfunktion <span class="math inline">\(\Phi\)</span> der Standardnormalverteilung, d.h.</p>
+<p><span class="math display">\[ \lim_{n \to \infty} P(Z_n ≤ z) = \Phi(z)\]</span></p>
+</section>
+<section id="annahme-der-normalverteilung" class="level3">
+<h3 class="anchored" data-anchor-id="annahme-der-normalverteilung">Annahme der Normalverteilung</h3>
+<p><strong>Beispiel t-Test</strong> Die Analyse der Robustheit bei fälschlich angenommener Normalverteilung ist äußerst schwierig. Über Simulationsstudien (Monte-Carlo) ist die Untersuchung der Performanz trotzdem möglich. Es werden Datensätze verschiedener Verteilungen simuliert und die Annahme bzw. Ablehnungsrate von <span class="math inline">\(H_0\)</span> analysiert bzw. mit anderen Tests verglichen.<br>
+Solche Simulationsstudien legen nahe, dass der t-Test relativ robust ist bei Verlassen der Normalverteilung.</p>
+<p>Die Normalverteilung kann auf verschiedene Weisen überprüft werden (Tests, z.B. Shapiro-Wilk), grafisch über die Verteilung bzw. Q-Q-Plots</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>sim<span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">40</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4817</span>)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>samp <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y =</span> sim)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(samp, <span class="fu">aes</span>(<span class="at">sample =</span> y)) <span class="sc">+</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>() <span class="sc">+</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Theoretische Quantile"</span>, <span class="at">y =</span> <span class="st">"Stichprobenquantile"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Falls keine Normalverteilung vorliegt, kann manchmal eine Transformation helfen.</p>
+</section>
+</section>
+<section id="nichtparametrische-verfahren" class="level2">
+<h2 class="anchored" data-anchor-id="nichtparametrische-verfahren">Nichtparametrische Verfahren</h2>
+<p>Anwendung in Daten</p>
+<ul>
+<li>die <em>deutlich nicht normalverteilt</em> sind,</li>
+<li>diskreten Daten,</li>
+<li>ordinalen Daten</li>
+</ul>
+<p>Oder nach der Struktur des Versuchs</p>
+<ul>
+<li>unverbundene Stichproben</li>
+<li>verbundene Stichproben
+<ul>
+<li>intra-individuelle Bewertung</li>
+<li>marginale Bewertung</li>
+</ul></li>
+</ul>
+<p>In normalverteilten Daten ist der Behandlungseffekt beschrieben durch die Differenz der Erwartungswerte <span class="math inline">\(\delta = \mu_2 - \mu_1\)</span></p>
+<section id="unverbundene-stichproben" class="level3">
+<h3 class="anchored" data-anchor-id="unverbundene-stichproben">Unverbundene Stichproben</h3>
+<p>Schätzung von <span class="math inline">\(\theta\)</span> durch Ränge, z.B. über Mann-Whitnes-Effekt</p>
+<p><span class="math display">\[ \hat{\theta} = \frac{1}{N}(\bar{R_{2\cdot}}- \bar{R_{1\cdot}})+ \frac{1}{2}\]</span></p>
+<p>Die Nullhypethese “kein Effekt” wird formuliert als die Gleichheit der beiden Rangverteilungen <span class="math display">\[ H_0^F: F_1 = F_2 \]</span> Für <strong>kleine Stichproben</strong> <span class="math inline">\(n_1, n_2 &lt; 15\)</span> wird die sog. <em>Permutationsverteilung</em> über eine Normalverteilung approximiert. der p-Wert wird über Algorithmen berechnet.<br>
+Für <strong>große Stichproben</strong> <span class="math inline">\(n_1, n_2 &gt; 15\)</span> kann die Annahmeentscheidung über folgende Formel getroffen werden <span class="math display">\[ W_N = \frac{1}{N}(\bar{R_{2\cdot}}-\bar{R_{1\cdot}})\sqrt{\frac{12 n_1 n_2}{N+1}} \sim N(0,1)\]</span> mit dem Effektschätzer <span class="math display">\[\hat{\theta} = \frac{1}{N}(\bar{R_{2\cdot}}-\bar{R_{1\cdot}})+\frac{1}{2} \]</span></p>
+<p>Voraussetzungen für die Anwendung des Tests sind:</p>
+<ul>
+<li>unverbundene Stichproben</li>
+<li>metrische oder ordinale Daten</li>
+<li>Varianz &gt; 0</li>
+</ul>
+</section>
+<section id="verbundene-stichproben" class="level3">
+<h3 class="anchored" data-anchor-id="verbundene-stichproben">Verbundene Stichproben</h3>
+<p>Anwendung z.B. bei Vergleichen innerhalb derselben Individuen im longitudinalen Verlauf. Es können beliebiege bivariate metrische oder ordinale Daten untersucht werden.</p>
+<section id="vorzeichentest" class="level4">
+<h4 class="anchored" data-anchor-id="vorzeichentest">Vorzeichentest</h4>
+<p>Es werden die verbundenen Werte der verbundenen Beobachtungen verglichen. Wenn <span class="math inline">\(X_{i1}&gt;X_{i2}\)</span>, dann wird ein <span class="math inline">\(-\)</span> notiert, beim umgekehrt Fall ein <span class="math inline">\(+\)</span>. Bei Gleichheit wird das Paar weggelassen. Daraus ergibt sich der Schätzer <span class="math display">\[\hat{q} = \frac{n^+}{n^*}, \]</span> mit <span class="math inline">\(n^+\)</span>: Anzahl der positiven Vergeliche und <span class="math inline">\(n^*\)</span>: Anzahl der Vergleich, die nicht weggelassen wurden</p>
+<p>Der Vorzeichentest wird in R in den Paketen {BSDA}, {DescTool}, {rstatix} realisiert. Alternativ kann auch nach manueller Bewertung in +,- und 0 ein Binomialtest in {base} gemacht werden.<br>
+Im allgemeinen bivariaten Modell ist der Vorzeichentest für einen Schluss auf die Randverteilungen nicht geeignet.</p>
+</section>
+<section id="wilcoxon-vorzeichentest-nur-semi-parametrisches-modell" class="level4">
+<h4 class="anchored" data-anchor-id="wilcoxon-vorzeichentest-nur-semi-parametrisches-modell">Wilcoxon-Vorzeichentest (nur semi-parametrisches Modell)</h4>
+<p>Quantifizierung von besser und schlechter durch Ränge.</p>
+<ul>
+<li>Wieder Differenzen bilden und Null-Differenzen weglassen.</li>
+<li><span class="math inline">\(n^* = n-n_0\)</span>, Annzahl der Differenzen ≠ 0</li>
+<li>Absolutbeträge der Difeenrenzen werden rangiert</li>
+<li><span class="math inline">\(R^+\)</span>: Summe der Ränge, die zu ursprünglich positiven Differenzen gehören</li>
+<li><span class="math inline">\(R^-\)</span>: Summe der Ränge, die zu ursprünglich negativen Differenzen gehören</li>
+<li>Testentscheidung: <span class="math display">\[ W_n^+ = \frac{R^+ - R^-}{\sqrt{\sum_{i=1}^{n^*} (R_i^+)^2}}\]</span> dann <span class="math inline">\(|W^+| &gt; z_{1-\alpha / 2} \to H_0^\mu\)</span> zum Niveau <span class="math inline">\(\alpha\)</span> ablehnen.<br>
+<span class="math inline">\(z_{1-\alpha/2}\)</span>: (1-<span class="math inline">\(\alpha\)</span>/2)-Quantil der N(0,1)</li>
+</ul>
+<p>Voraussetzungen für den Test:</p>
+<ul>
+<li>verbundene Stichproben</li>
+<li>Messwertpaare unabhängig</li>
+<li>metrische Daten</li>
+<li>symmetrische Verteilung der Differenzen zu <span class="math inline">\(\delta = \mu_2-\mu_1\)</span></li>
+</ul>
+<p><strong>In einem allgemeinen Modell ist der Wilcoxon Vorzeichen-Test für einen Schluss auf die Randverteilungen nicht geeignet</strong></p>
+</section>
+<section id="paired-ranks-test" class="level4">
+<h4 class="anchored" data-anchor-id="paired-ranks-test">paired-ranks Test</h4>
+<p>Hier können auch marginale Verteilungen verglichen werden. <span class="math display">\[ \bar{D_\cdot} = \frac{1}{n}\sum_{i=1}^n D_i, \hat{\sigma_D^2} = \frac{1}{n-1}\sum_{i=1}^n(D_i-\bar{D_\cdot})^2\]</span> <strong>Teststatistik</strong>: <span class="math display">\[T_n^R = \frac{\bar{D_\cdot}}{\hat{\sigma_D}}\sqrt{n} \sim N(0,1) \text{ unter } H_0^F, n \to \infty \]</span></p>
+<p><strong>Entscheidung</strong>:<br>
+<span class="math inline">\(|T_n^R| &gt; z_{1-\alpha/2} \to H_0^F\)</span> zum Niveau <span class="math inline">\(\alpha\)</span> ablehnen<br>
+</p>
+<p><strong>Voraussetzungen</strong></p>
+<ul>
+<li>verbundene Stichproben</li>
+<li>Messwertpaare unabhängig</li>
+<li>metrische oder ordinale Daten</li>
+</ul>
+</section>
 </section>
 </section>
 </section>

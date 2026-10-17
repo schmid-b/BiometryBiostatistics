@@ -156,6 +156,15 @@ Sowohl z-Test als auch t-Test unterscheiden zwischen verbundenen und nicht verbu
 * Relatives Risiko
 * Odds Ratio
 
+
+|              | Ereignis (+) | kein Ereignis (−) | Summe   |
+|--------------|:------------:|:-----------------:|:-------:|
+| **Gruppe 1** | $a$          | $b$               | $a+b$   |
+| **Gruppe 2** | $c$          | $d$               | $c+d$   |
+| **Summe**    | $a+c$        | $b+d$             | $n$     |
+
+: Schematische Vierfeldertafel {#tbl-vierfelder}
+
 ### $\chi^2$ Test
 
 Berechnen der Teststatistik mit der Formel $\chi^2 = \sum \frac{n \cdot (a\cdot d - b\cdot c)^2}{(a+b)\cdot(c+d)\cdot(a+c)\cdot(b+d)}$ und vergleichen des Wertes mit der kritischen Schranke zum gesetzten Signifikanzniveau. Für 5% z.B. 3.841 (Quadrat der entsprechnden Normalverteilung).
@@ -173,7 +182,7 @@ Fisher's exakter Test ist übermäßig konservativ und sollte praktisch nie ange
 
 :::
 
-Alternativen sind Tests aus der Gruppe der *unconditional exact tests*
+Alternativen sind Tests aus der Gruppe der *unconditional exact tests*, z.B. [Boschloo's Test](https://en.wikipedia.org/wiki/Boschloo%27s_test)
 
 ### Konfidenzintervall für den Effekt $p1 - p1$
 
@@ -183,3 +192,377 @@ Auch hier gibt es approximative zweiseitige Konfidenzintervalle mit verschieden 
 
 Schätzung des Unterschieds zwischen den Ereigniswahrscheinlichkeiten = **absolute Risikoreduktion**.
 
+## Kategorielle Variablen
+
+* nominale Variablen
+  + Spezialfall: dichotome Variablen
+* ordinale Variablen
+
+Die Verteilung ist definiert durch die Liste der möglichen Ausprägungen zusammen mit den Eintrittswahrscheinlichkeiten
+
+### Quantitative Maße zu kategoriellen Variablen
+
+$$OR = \frac{O_1}{O_2} = \frac{a\cdot d}{b \cdot c}$$
+$$RR = \frac{p1}{p2} = \frac{\frac{a}{a+b}}{\frac{c}{c+d}}$$
+
+::: {.callout}
+
+Übung
+
+:::
+
+
+![Aufgabenstellung](/biometrie1/images/uebung_2x2.png)
+
+```{r}
+#| execute: true
+
+tab <- matrix(c(1, 49,
+                11, 39),
+              nrow = 2, byrow = TRUE,
+              dimnames = list(Gruppe = c("non-smoker", "smoker"),
+                              Ergebnis = c("cancer", "no cancer")))
+
+
+
+chisq.test(tab, correct = FALSE)
+```
+
+Für den $\chi^2$-Test ist die Reihenfolge in den Reichen und Zeilen der Vierfeldertafel unerheblich. Bei RR und OR ist hierauf zu achten. Üblich wäre z.B. in den Zeilen die Gruppen aufzuführen (exponiert, nicht exponiert) und in den Spalten die Ereignisse (Ereignis, kein Ereignis)
+
+### 2x2-Tafel und abhängige Daten
+
+z.B. zutreffend bei der Untersuchung von Messwiederholungen dichotomer Merkmale. Hier wird nicht Pearson's $\chi^2$-Test verwendet sondern der nach McNemar.
+
+Aus der 2x2-Tafel ergibt sich dann die Frage, ob $$p_1 = \frac{a+b}{n} = \frac{a+c}{n} = p_2$$
+
+$Q_M = \frac{(b-c)^2}{(b+c)} \sim \chi^2(1)$
+
+### Simpson-Paradoxon
+
+In manchen Fällen haben Störgrößen Einfluss auf die scheinbaren Verteilungen. Stratifizierung kann hier helfen, falsche Schlüsse zu ziehen.
+
+z.B. kann es hilfreich sein, Ergebnisse aus verschiedenen Zentren getrennt auszuwerten anstatt eine gepoolte Analyse vorzunehmen.
+
+### Stratifizierte 2x2-Tafeln: 2x2xH
+
+Eine Möglichkeit, stratifizierte 2x2-Tafeln auszuwerten, ist der Mantel-Haenszel-Test
+
+* Abweichung vom Erwartungswert: $$ g_h = n_{h11} - n_{h1\cdot} \cdot \frac{n_{h \cdot 1}}{n_{h\cdot \cdot}}$$
+
+* Varianz: $$ V(n_{hij}|H_0) = \frac{n_{h1\cdot}n_{h\cdot 1}n_{h2\cdot}n_{h\cdot 2}}{n_{h\cdot \cdot}^2 \cdot (n_{h\cdot\cdot}-1)}= V_{h11} $$
+
+* Teststatistik
+
+
+::: {.callout}
+
+Übung
+:::
+
+![Aufgabenstellung](/biometrie1/images/uebung_MH.png)
+
+getrennte $\chi^2-Tests$
+```{r}
+#| execute: true
+
+tab1 <- matrix(c(23, 7,
+                29, 24),
+              nrow = 2, byrow = TRUE,
+              dimnames = list(Gruppe = c("conservative", "novel"),
+                              Ergebnis = c("yes", "no")))
+
+tab2 <- matrix(c(6, 29,
+                15, 19),
+              nrow = 2, byrow = TRUE,
+              dimnames = list(Gruppe = c("conservative", "novel"),
+                              Ergebnis = c("yes", "no")))
+
+
+chisq.test(tab1, correct = FALSE)
+chisq.test(tab2, correct = FALSE)
+```
+
+Mantel-Haenszel-Test
+
+```{r}
+
+Qmh <- ((23-30*(52/83))+(6-35*(21/69)))^2 /( (30*52*53*31)/((83^2)*(83-1)) + (35*21*34*48)/((69^2)*(69-1)))
+
+Qmh
+
+```
+
+
+```{r}
+tab_strata <- array(
+  c(23, 29, 7, 24,    # Stratum 1 (column-wise: a, c, b, d)
+    6, 15, 29, 19),   # Stratum 2
+  dim = c(2, 2, 2),
+  dimnames = list(Gruppe   = c("conservative", "novel"),
+                  Ergebnis = c("yes", "no"),
+                  Stratum  = c("female", "male"))
+)
+
+mantelhaen.test(tab_strata, correct = FALSE)
+```
+
+Das beobachtete Ergebnis ergibt sich aus der Tatsache, dass die beobachteten Effekte in den beiden Gruppen in die jeweils entgegengesetzte Richtung gehen und sich dann in der globalen Betrachtung aufheben.
+
+### 2 x c Tafel mit ordinaler Spaltenvariable
+
+Prinzipiell ist ein gewühnlicher $\chi^2$-Test möglich, jedoch ignoriert dieser die ordinale Struktur der Daten. \
+Eine Lösung ist die *mean score statistic* $Q_s$
+
+Alternativ ist hier auch der *Mann-Whitney-U-Test* möglich
+
+Angewandt auf stratifizierte ordinale Daten kann die *extended Mantel-Haenszel mean score statistic* $Q_{SMH}$ berechnet werden.
+
+
+## Normalverteilung
+
+Die Normalverteilung $N(\mu, \sigma^2)$ wird durch zwei Parameter vollstädig bestimmt.
+
+
+::: {.callout}
+
+Übung
+
+:::
+
+Zeichnen Sie die Verteilung für $N(0,1), N(0,4), N(0,0.5), N(2,1)$
+
+
+```{r}
+#| echo: false
+#| output: true
+
+
+library(ggplot2)
+
+params <- data.frame(
+  mu = c(0, 0, 0, 2),
+  sigma2 = c(1, 4, 0.5, 1)
+)
+params$label <- factor(sprintf("N(%g, %g)", params$mu, params$sigma2),
+                       levels = sprintf("N(%g, %g)", params$mu, params$sigma2))
+
+x <- seq(-6, 8, length.out = 500)
+dens <- do.call(rbind, lapply(seq_len(nrow(params)), function(i) {
+  data.frame(x = x,
+             density = dnorm(x, params$mu[i], sqrt(params$sigma2[i])),
+             label = params$label[i])
+}))
+
+ggplot(dens, aes(x, density, color = label)) +
+  geom_line(linewidth = 1) +
+  labs(x = "x", y = "Dichte", color = "Verteilung") +
+  theme_minimal()
+```
+
+Verteilungsfunktion
+
+
+```{r}
+#| echo: false
+#| output: true
+
+
+cdf <- do.call(rbind, lapply(seq_len(nrow(params)), function(i) {
+  data.frame(x = x,
+             cdf = pnorm(x, params$mu[i], sqrt(params$sigma2[i])),
+             label = params$label[i])
+}))
+
+ggplot(cdf, aes(x, cdf, color = label)) +
+  geom_line(linewidth = 1) +
+  labs(x = "x", y = "F(x)", color = "Verteilung") +
+  theme_minimal()
+```
+
+
+### Standardnormalverteilung
+
+$$\mu = 0,\sigma^2 = 1 $$
+Man kann jede beliebige Normalverteilung in eine Standardnormalverteilung transformieren:
+
+$$ X \sim N(\mu, \sigma^2) \to Z = (\frac{X-\mu}{\sigma}) \sim N(0,1) $$
+
+Übung zur Standardnormalverteilung
+
+$$\mu = 6.01, \sigma = 1.24$$
+1. Wie groß ist der Anteil in der Bevölkerung mit einem Cholesterinwert über 7 mmol/l?
+
+$$P(X > 7) = 1-P(X ≤ 7) = 1- P(Z ≤ \frac{7-6.01}{1.24}) = 1 - P(Z ≤ 0.798)$$
+
+```{r}
+pnorm(7, mean = 6.01, sd = 1.24, lower.tail = FALSE)
+```
+
+2. Welches ist die untere Cholesterinwertgrenze für die Personen mit den 5% höchsten Cholesterinwerten?
+
+$$ z_0.95 \to P(Z ≤ 1.645) \Rightarrow X ≤ 1.645 \cdot 1.24 + 6.01 = 8.05$$
+
+```{r}
+qnorm(0.95, mean = 6.01, sd = 1.24)
+```
+
+3. In welchem Bereich liegen die mittleren 90% der Cholesterinwerte in der Bevölkerung?
+
+
+
+$$ z_0.95 \to P(Z ≤ -1.645) \Rightarrow X ≤ -1.645 \cdot 1.24 + 6.01 = 3.97 $$
+$$ z_0.95 \to P(Z ≤ -1.645) \Rightarrow X ≤ +1.645 \cdot 1.24 + 6.01 = 8.05 $$
+
+```{r}
+qnorm(c(0.05, 0.95), mean = 6.01, sd = 1.24)
+```
+
+### Bedeutung der Normalverteilung
+
+* übliche Messwertverteilung in Populationen
+* Grenzwertverteilung for die Binomialverteilung und andere Verteilungen → Zentraler Grenzwertsatz
+
+### Normalverteilung als Grenzverteilung: Binomialverteilung
+
+$$ X \sim Bin(n,p) $$
+
+Diese Approximation ist anwendbar, falls $$ n \cdot p \cdot (1-p) ≥ 9$$
+
+Die Approximation erfolgt dann über $$ E(X) = n \cdot p $$
+und $$ Var(X) = n \cdot p \cdot (1-p) $$
+
+::: {.callout}
+Übung
+
+:::
+
+n = 5 und n = 20; p = 0.05
+
+1. Erwartungswert
+
+```{r}
+5*0.05
+20*0.05
+```
+
+2. Varianz
+
+```{r}
+5*0.05*(1-0.05)
+20*0.05*(1-0.05)
+```
+
+
+### Zentraler Grenzwertsatz (central limit theorem)
+
+Die Verteilungsfunktions von $Z_n$ für $n \to \infty$ konvergiert gegen die Verteilungsfunktion $\Phi$ der Standardnormalverteilung, d.h.
+
+$$ \lim_{n \to \infty} P(Z_n ≤ z) = \Phi(z)$$
+
+### Annahme der Normalverteilung
+
+**Beispiel t-Test**
+Die Analyse der Robustheit bei fälschlich angenommener Normalverteilung ist äußerst schwierig. Über Simulationsstudien (Monte-Carlo) ist die Untersuchung der Performanz trotzdem möglich. Es werden Datensätze verschiedener Verteilungen simuliert und die Annahme bzw. Ablehnungsrate von $H_0$ analysiert bzw. mit anderen Tests verglichen. \
+Solche Simulationsstudien legen nahe, dass der t-Test relativ robust ist bei Verlassen der Normalverteilung.
+
+
+Die Normalverteilung kann auf verschiedene Weisen überprüft werden (Tests, z.B. Shapiro-Wilk), grafisch über die Verteilung bzw. Q-Q-Plots
+```{r}
+sim<- rnorm(40,2,1)
+
+set.seed(4817)
+samp <- data.frame(y = sim)
+
+ggplot(samp, aes(sample = y)) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(x = "Theoretische Quantile", y = "Stichprobenquantile")
+```
+
+Falls keine Normalverteilung vorliegt, kann manchmal eine Transformation helfen.
+
+## Nichtparametrische Verfahren
+
+Anwendung in Daten
+
+* die *deutlich nicht normalverteilt* sind,
+* diskreten Daten,
+* ordinalen Daten
+
+Oder nach der Struktur des Versuchs
+
+* unverbundene Stichproben
+* verbundene Stichproben
+  + intra-individuelle Bewertung
+  + marginale Bewertung
+
+In normalverteilten Daten ist der Behandlungseffekt beschrieben durch die Differenz der Erwartungswerte 
+$\delta = \mu_2 - \mu_1$
+
+### Unverbundene Stichproben
+
+Schätzung von $\theta$ durch Ränge, z.B. über Mann-Whitnes-Effekt
+
+$$ \hat{\theta} = \frac{1}{N}(\bar{R_{2\cdot}}- \bar{R_{1\cdot}})+ \frac{1}{2}$$
+
+Die Nullhypethese "kein Effekt" wird formuliert als die Gleichheit der beiden Rangverteilungen $$ H_0^F: F_1 = F_2 $$
+Für **kleine Stichproben** $n_1, n_2 < 15$ wird die sog. *Permutationsverteilung* über eine Normalverteilung approximiert. der p-Wert wird über Algorithmen berechnet. \
+Für **große Stichproben** $n_1, n_2 > 15$ kann die Annahmeentscheidung über folgende Formel getroffen werden
+$$ W_N = \frac{1}{N}(\bar{R_{2\cdot}}-\bar{R_{1\cdot}})\sqrt{\frac{12 n_1 n_2}{N+1}} \sim N(0,1)$$
+mit dem Effektschätzer
+$$\hat{\theta} = \frac{1}{N}(\bar{R_{2\cdot}}-\bar{R_{1\cdot}})+\frac{1}{2} $$
+
+Voraussetzungen für die Anwendung des Tests sind:
+
+* unverbundene Stichproben
+* metrische oder ordinale Daten
+* Varianz > 0
+
+### Verbundene Stichproben
+Anwendung z.B. bei Vergleichen innerhalb derselben Individuen im longitudinalen Verlauf. Es können beliebiege bivariate metrische oder ordinale Daten untersucht werden.
+
+#### Vorzeichentest
+Es werden die verbundenen Werte der verbundenen Beobachtungen verglichen. Wenn $X_{i1}>X_{i2}$, dann wird ein $-$ notiert, beim umgekehrt Fall ein $+$. Bei Gleichheit wird das Paar weggelassen. Daraus ergibt sich der Schätzer
+$$\hat{q} = \frac{n^+}{n^*}, $$ mit
+$n^+$: Anzahl der positiven Vergeliche und
+$n^*$: Anzahl der Vergleich, die nicht weggelassen wurden
+
+Der Vorzeichentest wird in R in den Paketen {BSDA}, {DescTool}, {rstatix} realisiert. Alternativ kann auch nach manueller Bewertung in +,- und 0 ein Binomialtest in {base} gemacht werden.\
+Im allgemeinen bivariaten Modell ist der Vorzeichentest für einen Schluss auf die Randverteilungen nicht geeignet.
+
+#### Wilcoxon-Vorzeichentest (nur semi-parametrisches Modell)
+Quantifizierung von besser und schlechter durch Ränge.
+
+* Wieder Differenzen bilden und Null-Differenzen weglassen.
+* $n^* = n-n_0$, Annzahl der Differenzen ≠ 0
+* Absolutbeträge der Difeenrenzen werden rangiert
+* $R^+$: Summe der Ränge, die zu ursprünglich positiven Differenzen gehören
+* $R^-$: Summe der Ränge, die zu ursprünglich negativen Differenzen gehören
+* Testentscheidung: $$ W_n^+ = \frac{R^+ - R^-}{\sqrt{\sum_{i=1}^{n^*} (R_i^+)^2}}$$
+dann $|W^+| > z_{1-\alpha / 2} \to H_0^\mu$ zum Niveau $\alpha$ ablehnen.\
+$z_{1-\alpha/2}$: (1-$\alpha$/2)-Quantil der N(0,1)
+
+Voraussetzungen für den Test:
+
+* verbundene Stichproben
+* Messwertpaare unabhängig
+* metrische Daten
+* symmetrische Verteilung der Differenzen zu $\delta = \mu_2-\mu_1$
+
+**In einem allgemeinen Modell ist der Wilcoxon Vorzeichen-Test für einen Schluss auf die Randverteilungen nicht geeignet**
+
+#### paired-ranks Test
+Hier können auch marginale Verteilungen verglichen werden. 
+$$ \bar{D_\cdot} = \frac{1}{n}\sum_{i=1}^n D_i, \hat{\sigma_D^2} = \frac{1}{n-1}\sum_{i=1}^n(D_i-\bar{D_\cdot})^2$$
+**Teststatistik**:
+$$T_n^R = \frac{\bar{D_\cdot}}{\hat{\sigma_D}}\sqrt{n} \sim N(0,1) \text{ unter } H_0^F, n \to \infty $$
+
+**Entscheidung**:\
+$|T_n^R| > z_{1-\alpha/2} \to H_0^F$ zum Niveau $\alpha$ ablehnen\
+
+**Voraussetzungen**
+
+* verbundene Stichproben
+* Messwertpaare unabhängig
+* metrische oder ordinale Daten
