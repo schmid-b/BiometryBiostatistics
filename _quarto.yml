@@ -7,3 +7,8 @@ website:
     style: docked
     contents:
       - index.qmd
+format:
+  html:
+    toc: true
+    toc-location: right-body
+    toc-depth: 3

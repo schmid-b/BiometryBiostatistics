@@ -2,11 +2,6 @@
 title: "Medical Biometry / Biostatistics"
 subtitle: "Curriculum Universität Heidelberg 2026-2028"
 author: "Benedikt Schmid"
-format:
-  html:
-    toc: true
-    toc-location: right-body
-    toc-depth: 3
 ---
 # Biometrie I
 

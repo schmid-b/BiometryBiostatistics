@@ -84,14 +84,14 @@
     "href": "biometrie1/biometrie1.html",
     "title": "Medical Biometry / Biostatistics",
     "section": "",
-    "text": "Statistics in Medicine\nBiometrical Journal\nJournal of Statistical Software hier auch oft Publikation von R packages, z.B. BayesMultiMode: Bayesian Inference in R\n\n\n\n\n\n\n\n\n\nImportant\n\n\n\nModelle sind stets Vereinfachung der Realität\n\n\nModelle haben Voraussetzungen; meist sind diese nicht empirisch zu überprüfen."
+    "text": "Einführung\n  \n  Relevante Journals\n  Modellierung in der Biostatistik\n  \n  Grundprinzipien des statistischen Testens\n  \n  Test-Hypothesen\n  Binomialverteilung\n  p-Wert\n  Das Prinzip des statistischen Tests\n  Fehler 1. und 2. Art\n  Punktschätzung\n  Konfidenzintervall\n  Bericht / Publikation\n  \n  z-Test und t-Test für gepaarte und ungepaarte Stichproben\n  \n  z-Test\n  t-Test\n  \n  Tests und Risikomaße für Vierfeldertafeln\n  \n  \\(\\chi^2\\) Test\n  Konfidenzintervall für den Effekt \\(p1 - p1\\)\n  Absolute Risikoreduktion\n  \n  Kategorielle Variablen\n  \n  Quantitative Maße zu kategoriellen Variablen\n  2x2-Tafel und abhängige Daten\n  Simpson-Paradoxon\n  Stratifizierte 2x2-Tafeln: 2x2xH\n  2 x c Tafel mit ordinaler Spaltenvariable\n  \n  Normalverteilung\n  \n  Standardnormalverteilung\n  Bedeutung der Normalverteilung\n  Normalverteilung als Grenzverteilung: Binomialverteilung\n  Zentraler Grenzwertsatz (central limit theorem)\n  Annahme der Normalverteilung\n  \n  Nichtparametrische Verfahren\n  \n  Unverbundene Stichproben\n  Verbundene Stichproben"
   },
   {
     "objectID": "biometrie1/biometrie1.html#einführung",
     "href": "biometrie1/biometrie1.html#einführung",
     "title": "Medical Biometry / Biostatistics",
-    "section": "",
-    "text": "Statistics in Medicine\nBiometrical Journal\nJournal of Statistical Software hier auch oft Publikation von R packages, z.B. BayesMultiMode: Bayesian Inference in R\n\n\n\n\n\n\n\n\n\nImportant\n\n\n\nModelle sind stets Vereinfachung der Realität\n\n\nModelle haben Voraussetzungen; meist sind diese nicht empirisch zu überprüfen."
+    "section": "Einführung",
+    "text": "Einführung\n\nRelevante Journals\nStatistics in Medicine\nBiometrical Journal\nJournal of Statistical Software hier auch oft Publikation von R packages, z.B. BayesMultiMode: Bayesian Inference in R\n\n\nModellierung in der Biostatistik\n\n\n\n\n\n\nImportant\n\n\n\nModelle sind stets Vereinfachung der Realität\n\n\nModelle haben Voraussetzungen; meist sind diese nicht empirisch zu überprüfen."
   },
   {
     "objectID": "biometrie1/biometrie1.html#grundprinzipien-des-statistischen-testens",
