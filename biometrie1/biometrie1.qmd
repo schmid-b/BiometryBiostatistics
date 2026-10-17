@@ -579,3 +579,245 @@ Voraussetzungen:
 * Zusammenhang annähernd linear
 
 $r_{xy}$ ist dimensionslos und bewegt sich im Wertebereich [-1;1]. Das Vorzeichen zeigt die Richtung des linearen Zusammenhangs an. Die Abweichung von 0 gibt die Stärke des linearen Zusammenhangs an.
+
+#### Hypothesentest
+
+$$H_0: \rho_{XY} = 0, H_1: \rho_{XY} ≠ 0$$
+Teststatistik: $$ T = r_{xy}\sqrt{\frac{n-2}{1-r_{XY}^2}}\sim t_{n-2} \text{ unter } H_0$$
+Ebenso können Konfidenzintervalle berechnet werden.
+
+::: {.callout}
+Übung:
+Es soll der lineare Zusammenhang zwischen Körpergröße und Körpergewicht untersucht werden
+
+:::
+
+![Daten zur Aufgabe](/biometrie1/images/uebung_pearson.png)
+
+```{r}
+#| label: create-df
+#| echo: true
+#| output: false
+
+library(tidyverse)
+data <- tibble(
+    height = c(187, 170, 180, 184, 178, 180, 172, 176, 186, 177),
+    weight = c(72, 60, 73, 74, 72, 70, 62, 70, 80, 67)
+)
+data
+```
+
+```{r}
+#| label: plot-data
+#| echo: true
+#| output: true
+
+library(ggplot2)
+
+ggplot(data, aes(x = height, y = weight)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  theme_minimal()
+```
+
+
+```{r}
+#| label: test-pearson
+#| echo: true
+#| output: true
+
+
+# Nur der Koeffizient r
+cor(data$height, data$weight)
+
+# Test auf H0: rho = 0, mit 95%-Konfidenzintervall
+cor.test(data$height, data$weight)
+```
+
+### Einfache lineare Korrelation
+
+Ziel: Vorhersage der Zielgröße Y bei gegebener Einflussgröße X
+$$ Y = \alpha + \beta X +r $$
+$\beta$: Steigung (slope, Regressionskoeffizient)\
+r: nicht erklärter Fehlerterm mit $E(r) = 0, Var(r) = \sigma^2$
+
+**Berechnung der Regressionsparameter**:\
+$$\hat{\beta} = \frac{s_{XY}}{s_x^2}, \hat{\alpha} = \bar{y}-\hat{\beta}\cdot\bar{x}$$
+
+Das lineare Bestimmtheitsmaß $B$ gibt an, wie gut die ermittelte Gerade zur Vorhersage von $Y$ aus $X$ geeignet ist.
+$$B = r_{XY}^2,$$ 
+$r_{xy}^2$: Korrelationskoeffizient nach Pearson
+
+
+**Voraussetzungen für lineare Regression**
+
+* linearer Zusammenhang zwischen den Größen
+* möglichst keine Ausreißer
+* Unabhängigkeit der Beobachtungen
+* Varianzgleichheit
+* Normalverteilung
+
+**Anwendungsprobleme**
+
+* empfindlich für Ausreißer
+* nicht-lineare Beziehungen: Transformation oder komplexe fit-Funktionen
+* keine Prognose mit der Regressionsgerade über den Wertebereich hinaus (Extrapolation) möglich
+
+::: {.callout}
+Übung
+Angaben wie bei der Übung zum Pearson-Korrelationskoeffizienten
+
+:::
+
+
+```{r}
+#| label: height-weight-lm
+#| echo: true
+#| output: true
+
+fit <- lm(weight ~ height, data)
+fit
+
+broom::glance(fit)
+
+```
+
+Die Regressionsgleichung lautet
+$$weight = 0.91\cdot height -93.2$$
+
+### Methodenvergleich bei metrischen Merkmalen
+
+Wie gut stimmen die Messwerte von zwei unterschiedlichen Messmethoden überein?
+
+Verfahren nach Bland Altman. Hierbei kommen grafische Techniken und einfache Berechnungen zum Einsatz.
+
+#### Vorgehen
+
+* Punktwolke
+* Bland-Altman-Plot: Diferenz der Messwerte beider Methoden vs. Mittelwert der Messwerte
+  + Abschätzung der Größenordnung der Differenzen und ihrer Verteilung um 0
+  + Visuelle Prüfung der Abhängigkeit der Differenzen von der Größenordnung des Messwertes
+* Angabe eines 95%-Referenzbereichs (nicht Konfidenzintervall)
+
+## Logistische Regression
+
+**Mögliche Fragestellungen** sind:
+
+* Beurteilung eines Therapieerfolgs (ja/nein)
+* Entwicklung einer bestimmten Erkrankung (ja/nein)
+
+### Begriffe
+
+* Risiko: Wahrscheinlichkeit $p$
+* Chance (odds): Quotient aus Wahrscheinlichkeit und Gegenwahrscheinlichkeit $odds = \frac{p}{1-p}$
+* Relatives Risiko: Verhältnis der Risiken in zwei Vergleichsgruppen $$RR = \frac{p_1}{p_0}$$
+* Chancenverhältnis (Odds Ratio): Verhältnis der Chancen in zwei Vergleichsgruppen $$OR = \frac{p_1(1-p_0)}{(1-p_1)p_0}$$
+
+::: {.callout-note}
+
+Bei kleinem $p_1$ und $p_0$ (<0.10): **OR = RR**
+
+:::
+
+* Anhand der Vierfeldertafel sind $$\hat{RR} = \frac{a/(a+b)}{c/(c+a)} \text{ und } \hat{OR} = \frac{ad}{bc}$$
+
+::: {.callout}
+Übung
+Berechnen Sie den Schätzer und das 95% KI für das relative risiko RR
+
+:::
+
+![Aufgabenstellung](biometrie1/images/uebung_RR.png)
+
+
+```{r}
+a <- 68
+b <- 25
+c <- 17
+d <- 40
+
+RR <- (a/(a+b))/(c/(c+d))
+RR
+
+SE_ln_RR <- sqrt((1/a)-(1/(a+b))+(1/c)-(1/(c+d)))
+SE_ln_RR
+
+KI_ln_RR_upper <- log(RR) + 1.96*SE_ln_RR
+KI_ln_RR_upper
+
+KI_ln_RR_lower <- log(RR) - 1.96*SE_ln_RR
+KI_ln_RR_lower
+
+KI_RR_upper <- exp(KI_ln_RR_upper)
+KI_RR_upper
+
+KI_RR_lower <- exp(KI_ln_RR_lower)
+KI_RR_lower
+
+```
+
+RR = `r round(RR, 2)` [`r round(KI_RR_lower, 2)`; `r round(KI_RR_upper, 2)`]
+
+### Das logistische Regressionsmodell
+
+* Verfahren zur Untersuchung der Assoziation zwischen einer Zielgröße $Y$ und den Einflussgrößen $X_1, ..., X_k$
+* Vorhersage der Werte von $Y$ aus den Werten von $X_1, ..., X_k$
+
+::: {.callout-note}
+Bei der logistischen Regression ist die Zielgröße $Y$ dichotom
+
+:::
+
+Modellierung des Risikos durch Transformation der Zielgröße $Y \in {0;1}$\
+$$ p = P(Y=1) \in [0,1]$$
+$$\frac{p}{1-p} = odds \in [0, \infty]$$
+$$ln(\frac{p}{1-p}) = logit(p) = ln(odds) \in [-\infty, \infty]$$
+Modell mit einer Einflussgröße $X$:
+$$logit(p) = ln(\frac{p}{1-p}) = \alpha + \beta X \leftrightarrow p = \frac{e^{\alpha+\beta X}}{1+ e^{\alpha + \beta X}}$$
+$X$: Einflussgröße\
+$\beta$: logistischer Regressionskoeffizient\
+$\alpha$: Achsenabschnitt der logarithmierten Regressionsgeraden für $X=0$\
+$p$: Risiko Wahscheinlichkeit $P(Y=1)$
+
+::: {.callout-note}
+**Interpretation**
+
+$e^\beta = OR$
+
+:::
+
+#### Modellannahme
+$logit(p)$ ist **linear** assoziiert mit der Einflussgröße $X$ bzw. das Risiko $p$ ist logistisch mit der Einflussgröße $X$ assoziiert.
+
+::: {.callout}
+**Übung**
+Untersuchung des Einflusses des mittleren arteriellen Blutdrucks [mmHg] bei Aufnahme auf die Entstehung einer Hirnblutung. Schreiben Sie die Gleichung des logistischen Regressionsmodells auf.
+Wie ist der logistische Regressionskoeffizient zu interpretieren?
+
+:::
+
+Zielgröße (Y): Auftreten einer Hirnblutung (ja/nein)\
+Einflussgröße (X): MAP\
+Modellgleichung: $$logit(p) = \alpha + \beta \cdot MAP$$
+
+Die Modellanpassung liefert als Schätzer für $\beta$ den Wert 0.084, der Standardfehler ist 0.023. Berecchnen Sie das Odds Ratio und das 95% KI für das OR.
+
+
+```{r}
+beta <- 0.084
+SE <- 0.023
+
+OR <- exp(beta)
+OR
+
+KI_ln_OR_upper <- log(OR) + 1.96 * SE
+KI_ln_OR_lower <- log(OR) - 1.96 * SE
+
+KI_OR_upper <- exp(KI_ln_OR_upper)
+KI_OR_lower <- exp(KI_ln_OR_lower)
+
+KI_OR_upper
+KI_OR_lower
+```
+
+$OR$ = `r round(OR, 2)` [`r round(KI_OR_lower, 2)`; `r round(KI_OR_upper, 2)`]

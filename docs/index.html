@@ -241,6 +241,13 @@ window.Quarto = {
   <li><a href="#korrelation-und-einfache-lineare-regression" id="toc-korrelation-und-einfache-lineare-regression" class="nav-link" data-scroll-target="#korrelation-und-einfache-lineare-regression">Korrelation und einfache lineare Regression</a>
   <ul class="collapse">
   <li><a href="#korrelationskoeffizient-nach-pearson" id="toc-korrelationskoeffizient-nach-pearson" class="nav-link" data-scroll-target="#korrelationskoeffizient-nach-pearson">Korrelationskoeffizient nach Pearson</a></li>
+  <li><a href="#einfache-lineare-korrelation" id="toc-einfache-lineare-korrelation" class="nav-link" data-scroll-target="#einfache-lineare-korrelation">Einfache lineare Korrelation</a></li>
+  <li><a href="#methodenvergleich-bei-metrischen-merkmalen" id="toc-methodenvergleich-bei-metrischen-merkmalen" class="nav-link" data-scroll-target="#methodenvergleich-bei-metrischen-merkmalen">Methodenvergleich bei metrischen Merkmalen</a></li>
+  </ul></li>
+  <li><a href="#logistische-regression" id="toc-logistische-regression" class="nav-link" data-scroll-target="#logistische-regression">Logistische Regression</a>
+  <ul class="collapse">
+  <li><a href="#begriffe" id="toc-begriffe" class="nav-link" data-scroll-target="#begriffe">Begriffe</a></li>
+  <li><a href="#das-logistische-regressionsmodell" id="toc-das-logistische-regressionsmodell" class="nav-link" data-scroll-target="#das-logistische-regressionsmodell">Das logistische Regressionsmodell</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -920,8 +927,316 @@ Im allgemeinen bivariaten Modell ist der Vorzeichentest für einen Schluss auf d
 <li>Zusammenhang annähernd linear</li>
 </ul>
 <p><span class="math inline">\(r_{xy}\)</span> ist dimensionslos und bewegt sich im Wertebereich [-1;1]. Das Vorzeichen zeigt die Richtung des linearen Zusammenhangs an. Die Abweichung von 0 gibt die Stärke des linearen Zusammenhangs an.</p>
+<section id="hypothesentest" class="level4">
+<h4 class="anchored" data-anchor-id="hypothesentest">Hypothesentest</h4>
+<p><span class="math display">\[H_0: \rho_{XY} = 0, H_1: \rho_{XY} ≠ 0\]</span> Teststatistik: <span class="math display">\[ T = r_{xy}\sqrt{\frac{n-2}{1-r_{XY}^2}}\sim t_{n-2} \text{ unter } H_0\]</span> Ebenso können Konfidenzintervalle berechnet werden.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Übung: Es soll der lineare Zusammenhang zwischen Körpergröße und Körpergewicht untersucht werden</p>
+</div>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./biometrie1/images/uebung_pearson.png" class="img-fluid figure-img"></p>
+<figcaption>Daten zur Aufgabe</figcaption>
+</figure>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">height =</span> <span class="fu">c</span>(<span class="dv">187</span>, <span class="dv">170</span>, <span class="dv">180</span>, <span class="dv">184</span>, <span class="dv">178</span>, <span class="dv">180</span>, <span class="dv">172</span>, <span class="dv">176</span>, <span class="dv">186</span>, <span class="dv">177</span>),</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">weight =</span> <span class="fu">c</span>(<span class="dv">72</span>, <span class="dv">60</span>, <span class="dv">73</span>, <span class="dv">74</span>, <span class="dv">72</span>, <span class="dv">70</span>, <span class="dv">62</span>, <span class="dv">70</span>, <span class="dv">80</span>, <span class="dv">67</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> height, <span class="at">y =</span> weight)) <span class="sc">+</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/plot-data-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Nur der Koeffizient r</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(data<span class="sc">$</span>height, data<span class="sc">$</span>weight)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8785771</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test auf H0: rho = 0, mit 95%-Konfidenzintervall</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(data<span class="sc">$</span>height, data<span class="sc">$</span>weight)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  data$height and data$weight
+t = 5.2031, df = 8, p-value = 0.0008193
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.5571554 0.9710452
+sample estimates:
+      cor 
+0.8785771 </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="einfache-lineare-korrelation" class="level3">
+<h3 class="anchored" data-anchor-id="einfache-lineare-korrelation">Einfache lineare Korrelation</h3>
+<p>Ziel: Vorhersage der Zielgröße Y bei gegebener Einflussgröße X <span class="math display">\[ Y = \alpha + \beta X +r \]</span> <span class="math inline">\(\beta\)</span>: Steigung (slope, Regressionskoeffizient)<br>
+r: nicht erklärter Fehlerterm mit <span class="math inline">\(E(r) = 0, Var(r) = \sigma^2\)</span></p>
+<p><strong>Berechnung der Regressionsparameter</strong>:<br>
+<span class="math display">\[\hat{\beta} = \frac{s_{XY}}{s_x^2}, \hat{\alpha} = \bar{y}-\hat{\beta}\cdot\bar{x}\]</span></p>
+<p>Das lineare Bestimmtheitsmaß <span class="math inline">\(B\)</span> gibt an, wie gut die ermittelte Gerade zur Vorhersage von <span class="math inline">\(Y\)</span> aus <span class="math inline">\(X\)</span> geeignet ist. <span class="math display">\[B = r_{XY}^2,\]</span> <span class="math inline">\(r_{xy}^2\)</span>: Korrelationskoeffizient nach Pearson</p>
+<p><strong>Voraussetzungen für lineare Regression</strong></p>
+<ul>
+<li>linearer Zusammenhang zwischen den Größen</li>
+<li>möglichst keine Ausreißer</li>
+<li>Unabhängigkeit der Beobachtungen</li>
+<li>Varianzgleichheit</li>
+<li>Normalverteilung</li>
+</ul>
+<p><strong>Anwendungsprobleme</strong></p>
+<ul>
+<li>empfindlich für Ausreißer</li>
+<li>nicht-lineare Beziehungen: Transformation oder komplexe fit-Funktionen</li>
+<li>keine Prognose mit der Regressionsgerade über den Wertebereich hinaus (Extrapolation) möglich</li>
+</ul>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Übung Angaben wie bei der Übung zum Pearson-Korrelationskoeffizienten</p>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(weight <span class="sc">~</span> height, data)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>fit</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = weight ~ height, data = data)
+
+Coefficients:
+(Intercept)       height  
+    -93.243        0.912  </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">glance</span>(fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 12
+  r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
+      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1     0.772         0.743  2.95      27.1 0.000819     1  -23.9  53.8  54.7
+# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
+</div>
+</div>
+<p>Die Regressionsgleichung lautet <span class="math display">\[weight = 0.91\cdot height -93.2\]</span></p>
+</section>
+<section id="methodenvergleich-bei-metrischen-merkmalen" class="level3">
+<h3 class="anchored" data-anchor-id="methodenvergleich-bei-metrischen-merkmalen">Methodenvergleich bei metrischen Merkmalen</h3>
+<p>Wie gut stimmen die Messwerte von zwei unterschiedlichen Messmethoden überein?</p>
+<p>Verfahren nach Bland Altman. Hierbei kommen grafische Techniken und einfache Berechnungen zum Einsatz.</p>
+<section id="vorgehen" class="level4">
+<h4 class="anchored" data-anchor-id="vorgehen">Vorgehen</h4>
+<ul>
+<li>Punktwolke</li>
+<li>Bland-Altman-Plot: Diferenz der Messwerte beider Methoden vs.&nbsp;Mittelwert der Messwerte
+<ul>
+<li>Abschätzung der Größenordnung der Differenzen und ihrer Verteilung um 0</li>
+<li>Visuelle Prüfung der Abhängigkeit der Differenzen von der Größenordnung des Messwertes</li>
+</ul></li>
+<li>Angabe eines 95%-Referenzbereichs (nicht Konfidenzintervall)</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="logistische-regression" class="level2">
+<h2 class="anchored" data-anchor-id="logistische-regression">Logistische Regression</h2>
+<p><strong>Mögliche Fragestellungen</strong> sind:</p>
+<ul>
+<li>Beurteilung eines Therapieerfolgs (ja/nein)</li>
+<li>Entwicklung einer bestimmten Erkrankung (ja/nein)</li>
+</ul>
+<section id="begriffe" class="level3">
+<h3 class="anchored" data-anchor-id="begriffe">Begriffe</h3>
+<ul>
+<li>Risiko: Wahrscheinlichkeit <span class="math inline">\(p\)</span></li>
+<li>Chance (odds): Quotient aus Wahrscheinlichkeit und Gegenwahrscheinlichkeit <span class="math inline">\(odds = \frac{p}{1-p}\)</span></li>
+<li>Relatives Risiko: Verhältnis der Risiken in zwei Vergleichsgruppen <span class="math display">\[RR = \frac{p_1}{p_0}\]</span></li>
+<li>Chancenverhältnis (Odds Ratio): Verhältnis der Chancen in zwei Vergleichsgruppen <span class="math display">\[OR = \frac{p_1(1-p_0)}{(1-p_1)p_0}\]</span></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Bei kleinem <span class="math inline">\(p_1\)</span> und <span class="math inline">\(p_0\)</span> (&lt;0.10): <strong>OR = RR</strong></p>
+</div>
+</div>
+<ul>
+<li>Anhand der Vierfeldertafel sind <span class="math display">\[\hat{RR} = \frac{a/(a+b)}{c/(c+a)} \text{ und } \hat{OR} = \frac{ad}{bc}\]</span></li>
+</ul>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Übung Berechnen Sie den Schätzer und das 95% KI für das relative risiko RR</p>
+</div>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="biometrie1/images/uebung_RR.png" class="img-fluid figure-img"></p>
+<figcaption>Aufgabenstellung</figcaption>
+</figure>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">68</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">25</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="dv">17</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="dv">40</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>RR <span class="ot">&lt;-</span> (a<span class="sc">/</span>(a<span class="sc">+</span>b))<span class="sc">/</span>(c<span class="sc">/</span>(c<span class="sc">+</span>d))</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>RR</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.451613</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>SE_ln_RR <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((<span class="dv">1</span><span class="sc">/</span>a)<span class="sc">-</span>(<span class="dv">1</span><span class="sc">/</span>(a<span class="sc">+</span>b))<span class="sc">+</span>(<span class="dv">1</span><span class="sc">/</span>c)<span class="sc">-</span>(<span class="dv">1</span><span class="sc">/</span>(c<span class="sc">+</span>d)))</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>SE_ln_RR</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2126802</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>KI_ln_RR_upper <span class="ot">&lt;-</span> <span class="fu">log</span>(RR) <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>SE_ln_RR</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>KI_ln_RR_upper</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.313599</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>KI_ln_RR_lower <span class="ot">&lt;-</span> <span class="fu">log</span>(RR) <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>SE_ln_RR</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>KI_ln_RR_lower</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.479893</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>KI_RR_upper <span class="ot">&lt;-</span> <span class="fu">exp</span>(KI_ln_RR_upper)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>KI_RR_upper</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.719537</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>KI_RR_lower <span class="ot">&lt;-</span> <span class="fu">exp</span>(KI_ln_RR_lower)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>KI_RR_lower</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.615901</code></pre>
+</div>
+</div>
+<p>RR = 2.45 [1.62; 3.72]</p>
+</section>
+<section id="das-logistische-regressionsmodell" class="level3">
+<h3 class="anchored" data-anchor-id="das-logistische-regressionsmodell">Das logistische Regressionsmodell</h3>
+<ul>
+<li>Verfahren zur Untersuchung der Assoziation zwischen einer Zielgröße <span class="math inline">\(Y\)</span> und den Einflussgrößen <span class="math inline">\(X_1, ..., X_k\)</span></li>
+<li>Vorhersage der Werte von <span class="math inline">\(Y\)</span> aus den Werten von <span class="math inline">\(X_1, ..., X_k\)</span></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Bei der logistischen Regression ist die Zielgröße <span class="math inline">\(Y\)</span> dichotom</p>
+</div>
+</div>
+<p>Modellierung des Risikos durch Transformation der Zielgröße <span class="math inline">\(Y \in {0;1}\)</span><br>
+<span class="math display">\[ p = P(Y=1) \in [0,1]\]</span> <span class="math display">\[\frac{p}{1-p} = odds \in [0, \infty]\]</span> <span class="math display">\[ln(\frac{p}{1-p}) = logit(p) = ln(odds) \in [-\infty, \infty]\]</span> Modell mit einer Einflussgröße <span class="math inline">\(X\)</span>: <span class="math display">\[logit(p) = ln(\frac{p}{1-p}) = \alpha + \beta X \leftrightarrow p = \frac{e^{\alpha+\beta X}}{1+ e^{\alpha + \beta X}}\]</span> <span class="math inline">\(X\)</span>: Einflussgröße<br>
+<span class="math inline">\(\beta\)</span>: logistischer Regressionskoeffizient<br>
+<span class="math inline">\(\alpha\)</span>: Achsenabschnitt der logarithmierten Regressionsgeraden für <span class="math inline">\(X=0\)</span><br>
+<span class="math inline">\(p\)</span>: Risiko Wahscheinlichkeit <span class="math inline">\(P(Y=1)\)</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Interpretation</strong></p>
+<p><span class="math inline">\(e^\beta = OR\)</span></p>
+</div>
+</div>
+<section id="modellannahme" class="level4">
+<h4 class="anchored" data-anchor-id="modellannahme">Modellannahme</h4>
+<p><span class="math inline">\(logit(p)\)</span> ist <strong>linear</strong> assoziiert mit der Einflussgröße <span class="math inline">\(X\)</span> bzw. das Risiko <span class="math inline">\(p\)</span> ist logistisch mit der Einflussgröße <span class="math inline">\(X\)</span> assoziiert.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Übung</strong> Untersuchung des Einflusses des mittleren arteriellen Blutdrucks [mmHg] bei Aufnahme auf die Entstehung einer Hirnblutung. Schreiben Sie die Gleichung des logistischen Regressionsmodells auf. Wie ist der logistische Regressionskoeffizient zu interpretieren?</p>
+</div>
+</div>
+</div>
+<p>Zielgröße (Y): Auftreten einer Hirnblutung (ja/nein)<br>
+Einflussgröße (X): MAP<br>
+Modellgleichung: <span class="math display">\[logit(p) = \alpha + \beta \cdot MAP\]</span></p>
+<p>Die Modellanpassung liefert als Schätzer für <span class="math inline">\(\beta\)</span> den Wert 0.084, der Standardfehler ist 0.023. Berecchnen Sie das Odds Ratio und das 95% KI für das OR.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fl">0.084</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>SE <span class="ot">&lt;-</span> <span class="fl">0.023</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>OR <span class="ot">&lt;-</span> <span class="fu">exp</span>(beta)</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>OR</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.087629</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>KI_ln_OR_upper <span class="ot">&lt;-</span> <span class="fu">log</span>(OR) <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> SE</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>KI_ln_OR_lower <span class="ot">&lt;-</span> <span class="fu">log</span>(OR) <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> SE</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>KI_OR_upper <span class="ot">&lt;-</span> <span class="fu">exp</span>(KI_ln_OR_upper)</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>KI_OR_lower <span class="ot">&lt;-</span> <span class="fu">exp</span>(KI_ln_OR_lower)</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>KI_OR_upper</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.137781</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>KI_OR_lower</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.039687</code></pre>
+</div>
+</div>
+<p><span class="math inline">\(OR\)</span> = 1.09 [1.04; 1.14]</p>
 
 
+</section>
 </section>
 </section>
 </section>
