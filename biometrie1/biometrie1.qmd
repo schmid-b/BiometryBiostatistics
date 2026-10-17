@@ -566,3 +566,16 @@ $|T_n^R| > z_{1-\alpha/2} \to H_0^F$ zum Niveau $\alpha$ ablehnen\
 * verbundene Stichproben
 * Messwertpaare unabhängig
 * metrische oder ordinale Daten
+
+## Korrelation und einfache lineare Regression
+
+### Korrelationskoeffizient nach Pearson
+$r_{xy}$ untersucht den **linearen Zusammenhang** zwischen zwei **metrischen** Variablen. Er wird gebildet über die Normierung der Kovarianz.
+
+Voraussetzungen:
+
+* Unabhängige Beobachtungen
+* Normalverteilung der Variablen
+* Zusammenhang annähernd linear
+
+$r_{xy}$ ist dimensionslos und bewegt sich im Wertebereich [-1;1]. Das Vorzeichen zeigt die Richtung des linearen Zusammenhangs an. Die Abweichung von 0 gibt die Stärke des linearen Zusammenhangs an.

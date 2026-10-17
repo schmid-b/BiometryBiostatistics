@@ -185,11 +185,7 @@ window.Quarto = {
 </li>
     </ul>
     </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
+    <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
@@ -241,68 +237,23 @@ window.Quarto = {
   <li><a href="#unverbundene-stichproben" id="toc-unverbundene-stichproben" class="nav-link" data-scroll-target="#unverbundene-stichproben">Unverbundene Stichproben</a></li>
   <li><a href="#verbundene-stichproben" id="toc-verbundene-stichproben" class="nav-link" data-scroll-target="#verbundene-stichproben">Verbundene Stichproben</a></li>
   </ul></li>
+  <li><a href="#korrelation-und-einfache-lineare-regression" id="toc-korrelation-und-einfache-lineare-regression" class="nav-link" data-scroll-target="#korrelation-und-einfache-lineare-regression">Korrelation und einfache lineare Regression</a>
+  <ul class="collapse">
+  <li><a href="#korrelationskoeffizient-nach-pearson" id="toc-korrelationskoeffizient-nach-pearson" class="nav-link" data-scroll-target="#korrelationskoeffizient-nach-pearson">Korrelationskoeffizient nach Pearson</a></li>
+  </ul></li>
   </ul>
 </nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
-<nav id="TOC-body" role="doc-toc">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#einführung" id="toc-einführung">Einführung</a>
-  <ul>
-  <li><a href="#relevante-journals" id="toc-relevante-journals">Relevante Journals</a></li>
-  <li><a href="#modellierung-in-der-biostatistik" id="toc-modellierung-in-der-biostatistik">Modellierung in der Biostatistik</a></li>
-  </ul></li>
-  <li><a href="#grundprinzipien-des-statistischen-testens" id="toc-grundprinzipien-des-statistischen-testens">Grundprinzipien des statistischen Testens</a>
-  <ul>
-  <li><a href="#test-hypothesen" id="toc-test-hypothesen">Test-Hypothesen</a></li>
-  <li><a href="#binomialverteilung" id="toc-binomialverteilung">Binomialverteilung</a></li>
-  <li><a href="#p-wert" id="toc-p-wert">p-Wert</a></li>
-  <li><a href="#das-prinzip-des-statistischen-tests" id="toc-das-prinzip-des-statistischen-tests">Das Prinzip des statistischen Tests</a></li>
-  <li><a href="#fehler-1.-und-2.-art" id="toc-fehler-1.-und-2.-art">Fehler 1. und 2. Art</a></li>
-  <li><a href="#punktschätzung" id="toc-punktschätzung">Punktschätzung</a></li>
-  <li><a href="#konfidenzintervall" id="toc-konfidenzintervall">Konfidenzintervall</a></li>
-  <li><a href="#bericht-publikation" id="toc-bericht-publikation">Bericht / Publikation</a></li>
-  </ul></li>
-  <li><a href="#z-test-und-t-test-für-gepaarte-und-ungepaarte-stichproben" id="toc-z-test-und-t-test-für-gepaarte-und-ungepaarte-stichproben">z-Test und t-Test für gepaarte und ungepaarte Stichproben</a>
-  <ul>
-  <li><a href="#z-test" id="toc-z-test">z-Test</a></li>
-  <li><a href="#t-test" id="toc-t-test">t-Test</a></li>
-  </ul></li>
-  <li><a href="#tests-und-risikomaße-für-vierfeldertafeln" id="toc-tests-und-risikomaße-für-vierfeldertafeln">Tests und Risikomaße für Vierfeldertafeln</a>
-  <ul>
-  <li><a href="#chi2-test" id="toc-chi2-test"><span class="math inline">\(\chi^2\)</span> Test</a></li>
-  <li><a href="#konfidenzintervall-für-den-effekt-p1---p1" id="toc-konfidenzintervall-für-den-effekt-p1---p1">Konfidenzintervall für den Effekt <span class="math inline">\(p1 - p1\)</span></a></li>
-  <li><a href="#absolute-risikoreduktion" id="toc-absolute-risikoreduktion">Absolute Risikoreduktion</a></li>
-  </ul></li>
-  <li><a href="#kategorielle-variablen" id="toc-kategorielle-variablen">Kategorielle Variablen</a>
-  <ul>
-  <li><a href="#quantitative-maße-zu-kategoriellen-variablen" id="toc-quantitative-maße-zu-kategoriellen-variablen">Quantitative Maße zu kategoriellen Variablen</a></li>
-  <li><a href="#x2-tafel-und-abhängige-daten" id="toc-x2-tafel-und-abhängige-daten">2x2-Tafel und abhängige Daten</a></li>
-  <li><a href="#simpson-paradoxon" id="toc-simpson-paradoxon">Simpson-Paradoxon</a></li>
-  <li><a href="#stratifizierte-2x2-tafeln-2x2xh" id="toc-stratifizierte-2x2-tafeln-2x2xh">Stratifizierte 2x2-Tafeln: 2x2xH</a></li>
-  <li><a href="#x-c-tafel-mit-ordinaler-spaltenvariable" id="toc-x-c-tafel-mit-ordinaler-spaltenvariable">2 x c Tafel mit ordinaler Spaltenvariable</a></li>
-  </ul></li>
-  <li><a href="#normalverteilung" id="toc-normalverteilung">Normalverteilung</a>
-  <ul>
-  <li><a href="#standardnormalverteilung" id="toc-standardnormalverteilung">Standardnormalverteilung</a></li>
-  <li><a href="#bedeutung-der-normalverteilung" id="toc-bedeutung-der-normalverteilung">Bedeutung der Normalverteilung</a></li>
-  <li><a href="#normalverteilung-als-grenzverteilung-binomialverteilung" id="toc-normalverteilung-als-grenzverteilung-binomialverteilung">Normalverteilung als Grenzverteilung: Binomialverteilung</a></li>
-  <li><a href="#zentraler-grenzwertsatz-central-limit-theorem" id="toc-zentraler-grenzwertsatz-central-limit-theorem">Zentraler Grenzwertsatz (central limit theorem)</a></li>
-  <li><a href="#annahme-der-normalverteilung" id="toc-annahme-der-normalverteilung">Annahme der Normalverteilung</a></li>
-  </ul></li>
-  <li><a href="#nichtparametrische-verfahren" id="toc-nichtparametrische-verfahren">Nichtparametrische Verfahren</a>
-  <ul>
-  <li><a href="#unverbundene-stichproben" id="toc-unverbundene-stichproben">Unverbundene Stichproben</a></li>
-  <li><a href="#verbundene-stichproben" id="toc-verbundene-stichproben">Verbundene Stichproben</a></li>
-  </ul></li>
-  </ul>
-</nav>
+
 <section id="einführung" class="level2">
 <h2 class="anchored" data-anchor-id="einführung">Einführung</h2>
 <section id="relevante-journals" class="level3">
@@ -927,9 +878,23 @@ Im allgemeinen bivariaten Modell ist der Vorzeichentest für einen Schluss auf d
 <li>Messwertpaare unabhängig</li>
 <li>metrische oder ordinale Daten</li>
 </ul>
-
-
 </section>
+</section>
+</section>
+<section id="korrelation-und-einfache-lineare-regression" class="level2">
+<h2 class="anchored" data-anchor-id="korrelation-und-einfache-lineare-regression">Korrelation und einfache lineare Regression</h2>
+<section id="korrelationskoeffizient-nach-pearson" class="level3">
+<h3 class="anchored" data-anchor-id="korrelationskoeffizient-nach-pearson">Korrelationskoeffizient nach Pearson</h3>
+<p><span class="math inline">\(r_{xy}\)</span> untersucht den <strong>linearen Zusammenhang</strong> zwischen zwei <strong>metrischen</strong> Variablen. Er wird gebildet über die Normierung der Kovarianz.</p>
+<p>Voraussetzungen:</p>
+<ul>
+<li>Unabhängige Beobachtungen</li>
+<li>Normalverteilung der Variablen</li>
+<li>Zusammenhang annähernd linear</li>
+</ul>
+<p><span class="math inline">\(r_{xy}\)</span> ist dimensionslos und bewegt sich im Wertebereich [-1;1]. Das Vorzeichen zeigt die Richtung des linearen Zusammenhangs an. Die Abweichung von 0 gibt die Stärke des linearen Zusammenhangs an.</p>
+
+
 </section>
 </section>
 

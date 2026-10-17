@@ -10,5 +10,5 @@ website:
 format:
   html:
     toc: true
-    toc-location: right-body
+    toc-location: left
     toc-depth: 3
