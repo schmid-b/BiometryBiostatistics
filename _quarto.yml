@@ -1,2 +1,4 @@
 project:
-  type: default
+  type: website
+website:
+  title: "Medical Biometry / Biostatistic"
