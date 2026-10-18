@@ -3,12 +3,10 @@ project:
   output-dir: docs
 website:
   title: "Medical Biometry / Biostatistics"
-  sidebar:
-    style: docked
-    contents:
-      - index.qmd
+  
 format:
   html:
     toc: true
-    toc-location: left
+    toc-location: right-body
     toc-depth: 3
+    toc-title: "Inhalt"

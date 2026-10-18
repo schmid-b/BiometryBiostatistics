@@ -821,3 +821,354 @@ KI_OR_lower
 ```
 
 $OR$ = `r round(OR, 2)` [`r round(KI_OR_lower, 2)`; `r round(KI_OR_upper, 2)`]
+
+## ANalysis Of VAriance
+
+Mittels Varianzanalyse kann der Mittelwert einer stetigen Variable zwischen mehr als zwei Gruppen verglichen werden. Es gibt verschiedene Typen:
+
+* einfaktoriell / mehrfaktoriell
+* mit oder ohne Messwiederholungen
+* univariat / multivariat (Anzahl der **Ziel**variablen)
+* Kovarianzanalyse (Einschluss von Kovariablen)
+
+Im Allgemeinen geht man von $I$ Faktorstufen bzw. Gruppen aus, die miteinander verglichen werden sollen. In jeder Gruppe befinden sich $J$ Individuen. Außerdem wird Normalverteilung der abhängigen Variable angenommen.
+$$y_{ij} \sim N(\mu_i, \sigma^2), i = 1, ..., I, j = 1, ...,J$$
+Alle $y_{ij}$ werden als unabhängig angenommen. Für alle Gruppen wird eine einheitliche Varianz $\sigma^2$
+ angenommen.
+
+Ziel einer Varianzanalyse ist es, die Frage zu beantworten:
+
+*Hat der Faktor einen Einfluss auf die abhängige Variable?*
+
+Die zugehörigen Hypethesen sind dann:
+$$H_0: \mu_1 = \mu_2 = ... = \mu_i$$
+$$H_1: \mu_i ≠ \mu_j \text{ für mindestens ein Paar i,j}$$
+
+#### Vorgehen beim Testen
+Zerlege die Gesamtvariation ($SS_T$) in den Daten in die Variation zwischen den Gruppen ($SS_B$) und die Variation innerhalb der Gruppen ($SS_W$)
+$$SS_T = SS_W + SS_B$$
+Die Variation beschreibt jeweils die Summe über die quadratischen Abweichungen vom Gesamtmittelwert.
+$$\bar{y}_{++} = \frac{1}{IJ}\sum_{i=1}I\sum_{j=1}^J y_{ij}$$
+bzw. vom Gruppenmittelwert
+$$\bar{y}_{i+} = \frac{1}{J}\sum_j y_{}ij$$
+
+::: {.callout-note}
+Zur konkreten Durchführung des Tests wird nun die Variation zwischen den Gruppen mit der Variation innerhalb der Gruppen verglichen.
+:::
+
+Um einen parametrischen Test durchführen zu können, müssen Verteilungsannahmen getroffen werden:
+
+* Unter $H_0$ folgt $\frac{1}{\sigma^2}SS_B$ einer $\chi^2$-Verteilung mit $I-1$ Freiheitsgraden
+* Unabhängig von der Gültigkeit von $H_0$ folgt $\frac{1}{\sigma^2}SS_W$ einer $\chi^2$-Verteilung mit $I-1$ Freiheitsgraden
+
+Zur Testeintscheidung wird folgende Teststatistik definiert:
+$$F = \frac{SS_B/(I-1)}{SS_W/(J-1)}$$,
+welche $F(I-1,(J-1))-verteilt ist.
+
+Falls $$F > F(I-1, I(J-1); 1-\alpha),$$
+so wird $H_0$ abgelehnt.
+
+#### Anmerkungen
+Die "Variationen" werden auch *Quadratsummen* oder *Abweichungsquadrate* genannt.\
+Zur besseren Veranschaulichung wird außerdem $SS_B$ auch als *Treatmentquadratsumme* und $SS_W$ als *Fehlerquadratsumme* bezeichnet.
+
+::: {.callout}
+Übung
+:::
+
+```{r}
+data_ANOVA <- tibble(
+  A = c(5, 4, 5, 7, 5, 6),
+  B = c(6, 5, 9, 8, 6, 5),
+  C = c(4, 5, 3, 5, 4, 3)
+)
+data_ANOVA
+
+# die Daten müssen in ein long-Format gebracht werden, sodass die Gruppenzugehörigkeit eine Faktor-Variable ist
+
+long <- data_ANOVA |>
+  pivot_longer(everything(), names_to = "group", values_to = "value")
+long
+
+```
+
+```{r}
+I <- 3
+J <- 6
+SS_B <- 18.78
+SS_W <- 22.83
+
+y_plusplus <- 5.28
+y_1plus <- 5.33
+y_2plus <- 6.50
+y_3plus = 4
+
+
+F <- (SS_B/(I-1))/(SS_W/(I*(J-1)))
+
+F
+
+
+
+```
+
+```{r}
+library(infer)
+
+F_statistic <- long |> 
+  specify(value ~ group) |> 
+  hypothesize(null = "independence") |> 
+  calculate(stat = "F")
+
+F_statistic
+
+```
+
+```{r}
+null_dist_theory <- long |>
+  specify(value ~ group) |>
+  assume(distribution = "F")
+
+visualize(null_dist_theory) +
+  shade_p_value(F_statistic,
+                direction = "greater") +
+  theme_minimal()
+```
+
+
+
+Da die Teststatistik F größer ist als $F(2,15,0.95) = 3.682$ ist, kann $H_0$ zu $\alpha = 0.05$ abgelehnt werden.
+
+### Modelldarstellung
+
+Für komplexere Modelle kann es sinnvoll sein, in eine Modellformulierung überzugehen. Auch die einfaktorielle Varianzanalyse kann auf diese Weise dargestellt werden.\
+Die Modelldarstellung für einfaktorielle Versuchspläne lautet
+$$y_{ij} = \mu_i + \epsilon_{ij}, \epsilon \sim N(0, \sigma^2)$$
+Die Darstellung als Regressionsmodell bietet einen Einstieg in komplexere varianzanalytische Verfahren
+
+### post-hoc Tests
+
+Wenn in der ANOVA die Nullhypothese verworfen werden konnte, ist wahrscheinlich in mindestens einem Gruppenvergleich zwischen zwei Gruppen ein Unterschied gefunden werden. Bei mehreren solchen Test besteht die Gefahr der Inflation des Fehlers 1. Art. Die Wahrscheinlichkeit $\alpha^*$, bei $m$ wiederholten Tests mindestens eine Nullhypothese (i.e. die $k$-te Nullhypothese) fälschlicherweise abzulehnen, steigt bereits bei wenigen Wiederholungen stark an.
+$$\alpha^* = 1-(1-\alpha)^{m}$$
+
+#### Bonferroni-Adjustierung
+
+Die Bonferroni-Korrektur teilt das globale Signifikanzniveau $\alpha$ durch die Anzahl der durchzuführenden Tests $m$
+$$\alpha_i = \frac{\alpha}{m}$$
+Dieses Vorgehen ist einfach durchzuführen, aber sehr konservativ.
+
+#### weitere Adjustierungsverfahren
+
+* Der **Scheffé-Test** eignet sich allgemein für alle Post-hoc-Vergleiche. Bei nur paarweisen Vergleichen ist er im Allgemeinen zu konservativ
+* Besser geeignet ist dann der **Tukey-Test**.
+* Der **Dunnett-Test** ist geeignet, wenn mehrere Gruppen jeweils mit derselben Kontrolle verglichen werden.
+* Das **Abschlusstest-Verfahren** geht hierarchisch vor. Eine "weniger einschränkende" Hypothese wird erst dann getestet, wenn die vorangegangene "einschränkendere" Hypothese abgelehnt wurde (dies aber zum globalen Signifikanzniveau $\alpha$)
+
+### Zweifaktorielle Versuchspläne
+Das bisherige Verfahren kann auch auf mehrere Einflussfaktoren erweitert werden. Bei zwei Faktoren betrachtet man z.B. $A$ mit $I$ Stufen und $B$ mit $J$ Stufen. Man geht davon aus, dass pro Kombination jeweils $K$ unabhängige Beobachtungen vorliegen. Das zugehörige Modell ist
+$$\mu_{ij} = \mu_0 + \alpha_i + \beta_j + (\alpha\beta)_{ij} + \epsilon_{ijk}, \epsilon_{ijk} \sim N(0,\sigma^2)$$
+mit\
+$\alpha_i = \mu_{i+} - \mu_0$,\
+$\beta_i = \mu_{+j}- \mu_0$,\
+$(\alpha\beta)_{ij} = \mu_{ij} - \mu_{i+} - \mu_{+j} + \mu_0$,\
+$i = 1, ...., I; j = 1, ...., J$\
+
+
+Der Interaktionsterm $\alpha\beta$ beschreibt die Wechselwirkung zwischen den beiden Faktoren.
+
+### Kovarianzanalyse
+
+Wenn wir annehmen, dass eine weitere stetige Variable existieren, die auch einen Einfluss auf die abhängige Variable hat, kann mittels Kovarianzanalyse für diese Variable kontrolliert werden.
+
+### Nonparametrische Alternative
+
+Die nicht-parametrische Alternative zur ANOVA ist der Kruskal-Wallis-Test. Hier wird allgemein getestet, ob Verteilungen (innerhalb der Gruppen) gleich sind.\
+Bei der Durchführung des Tests werden die Beobachtungen in eine Rangreihenfolge gebracht. Auf Grund dieser wird dann die Teststatistik konstruiert.
+
+
+::: {.callout}
+Übung
+Datensatz *cholesterol* aus dem R package {multcomp}. Gibt es einen Unterschied zwischen den verschiedenen Behandlungsgruppen in Bezug auf die Cholesterinwert-Reduktion?
+
+:::
+
+
+```{r}
+library(multcomp)
+library(broom)
+multcomp::cholesterol
+
+fit <- aov(response ~ trt, data = multcomp::cholesterol)
+
+result_cholesterol <- tidy(fit)
+result_cholesterol
+
+```
+
+Es ergeben sich die Parameter $SS_B = `r round(result_cholesterol |> filter(term == "trt") |> pull(sumsq), 2)`$ und $SS_W= `r round(result_cholesterol |> filter(term == "Residuals") |> pull(sumsq), 2)`$, Die F-Statistik ist $F = `r round(result_cholesterol |> filter(term == "trt") |> pull(statistic), 2)`$. Die Nullhypothese ist abzulehnen.
+
+## Überlebenszeitanalyse
+
+Bei Überlebenszeitanalysen wierden Zeitspannen bis zum Eintritt eines Ereignisses betrachtet. Das Event muss nicht per se negativ (i.e. Tod) sein. In der Anwendung wird häufig einfach von "survival" gesprochen.\
+
+### Anwendungsgebiete
+
+* Haltbarkeit von Implantaten
+* Alkoholabstinenz
+* Zeit bis Verschlechterung (progression-free survival)
+* Überlebenszeit nach Behandlung (overall survival)
+* Erreichen eines gewissen Stadiums in Prognosestudien
+
+### Grundbegriffe
+
+* Zufallsvariable $T:=$ Zeit bis zum Eintreten des Events
+* Die Verteilungsfunktion beschreibt die Wahrscheinlichkeit, dass das Event zum Zeitpunkt t oder davor auftritt:
+$$F(t) = P(T≤t) = \int_0^t f(x) dx$$
+* Die Überlebensfunktion $S(t)$ (Survivalfunktion) ist definiert als:
+$$S(t) = P(T > t) = 1 - F(t)$$
+* Die Hazardrate bzw. das Hazard ist definiert durch
+$$h(t) = \lim_{\Delta t \to 0} \frac{P(t \leq T < t + \Delta t \mid T \geq t)}{\Delta t}$$
+Durch die Annäherung von $\Delta t \to 0$ ist das Risiko, dass bei Erreichen von $t$ im nächsten Moment das Ereignis eintritt ("augenblickliche Eventrate"). Das Hazard $h$ hat für sich genommen keine interpretierbare Bedeutung, wird aber im Rahmen von *Hazard Ratios* berechnet.
+
+* Die kumulative Hazardfunktion ist definiert als
+$$H(t) = \int_0^t h(x) dx$$
+und beschreibt die Ansammlung von Risiko bis zum Zeitpunkt $t$.
+* *Hazardfunktion* und *Survivalfunktion* hängen zusammen
+$$h(t) = \frac{f(t)}{S(t)}$$
+* Zudem gilt der Zusammenhang zwischen *kumulativer Hzardfunktion* und *Survivalfunktion*
+$$H(t) = -ln S(t)$$
+
+* Empirische Verteilungsfunktion
+$$F_n(t) = \frac{\text{Anzahl an Events bei oder vor }t}{n}$$
+
+* Empirische Überlebensfunktion
+$$S_n(t) = \frac{\text{Anzahl an Events nach }t}{n}$$
+
+
+* Die empirische Überlebensrate $p(t)$ beschreibt den Anteil derer, die bei $t$ kein Event erlebt haben und kurz zuvor unter Risiko standen, eines zu erleben
+$$p(t) = \frac{\text{Anzahl ohne Event bei t}}{\text{Anzahl unter Risiko kurz vor t}}$$
+Aus der graphischen Darstellung von $p(t)$ lässt sich das Überlebensquantil, z.B. die mediane Überlebenszeit $t_{0.5}$ ablesen.
+
+::: {.callout}
+Übung
+Beobachtete Überlebenszeiten in Monaten: 11, 13, 13, 13, 13, 13, 14, 14, 15, 15, 17
+Berechnen Sie die Schätzwerte für die **Überlebensfunktion** $S(t)$ und der **Überlebensrate** $p(t)$ für $t = 11, 13, 14, 15, 17$ Monate
+:::
+
+
+```{r}
+S_11 <- (1)/11
+S_11
+
+S_13 <- (6)/11
+S_13
+
+S_14 <- 8/11
+S_14
+
+S_15 <- 10/11
+S_15
+
+S_17 <- 11/11
+S_17
+
+p_11 <- 10/11
+p_11
+
+p_13 <- 5/10
+p_13
+
+p_14 <- 3/5
+p_14
+
+p_15 <- 1/3
+p_15
+
+p_17 <- 0/1
+p_17
+
+```
+
+### Arten der Zensierung
+
+#### Linkszensierung
+
+* Ereignis zwischen Studienbeginn und 1. Untersuchung
+* Startereignis findet verspätet statt
+* z.B. Erstinfektion bereits vor erstem Studientermin
+
+#### Intervallzensierung
+
+* Zeitpunkt des Ereignisses ist nur in einem Intervall bestimmbar (z.B. zwischen zwei Untersuchungen)
+
+#### Rechtszensierung
+
+* Loss to follow-up
+* Studienende
+* Tod auf Grund anderer Ursachen
+
+Häufigste Form der beobachteten Zensierung
+
+**Zensierungen dürfen nicht informativ sein!** Daher sollte der Grund von Zensierungen möglichst herausgefunden werden. Beispiele:
+
+* Patienten mit schlechtem Outcome erscheinen nicht zur Nachuntersuchung
+* Patienten werden kurz vor dem sich abzeichnenden Event aus der Studie genommen, um eine andere Therapie zu versuchen
+
+### Nichtparametrische Überlebensschätzer
+
+#### Produkt-Limit-Methode nach Kaplan & Meier
+
+* Die Eventzeitpunkte $t_k, k = 1,2,...,m$ sind der Größe nach aufsteigend angeordnet
+* Die Sterberate $\lambda_k$ im Intervall kurz vor dem nächsten Ereignis ist die bedingte Wahrscheinlichkeit, im k-ten Intervall zu sterben, gegeben dass das Zeitintervall erreicht wurde.
+* Die Überlebensrate $p_k$ ist die Wahrscheinlichkeit, bis zum Zeitpunkt $t_k$ zu überleben, gegeben dass das Zeitintervall erreicht wurde und damit die Gegenwahrscheinlichkeit zu $\lambda_k$
+
+Der Kaplan-Meier-Schätzer errechnet sich wie folgt:
+$$ \hat{S}(t) = \prod_{k: t_k ≤t} (1- \frac{d_k}{n_k}) \text{ mit } \hat{S}(0) = 1$$
+
+* Der Standardfehler des K-M-Schätzers berechnet sich z.B. als
+$$SE(\hat{S}(t_k)) = \hat{S}(t_k) \cdot \sqrt{\frac{1-\hat{S}(t_k)}{n_k}}$$
+
+
+
+#### Interpretation des K-M-Schätzers
+
+Zu einem gegebenen Zeitpunkt gibt der K-M-Schätzer die Wahrscheinlichkeit an, bis zu diesem Zeitpunkt überlebt zu haben. Ignoriert man den Zeitpunkt der Zensierung, so überschätzt man die Überlebenswahrscheinlichkeit. \
+Der K-M-Schätzer lässt sich grafisch über **Kaplan-Meier-Plots darstellen**.
+
+* Die Anzahl der Ereignisse wird durch die Höhe der "Treppenstufen" abgebildet.
+* Zensierungen sind Punkte oder Striche auf diesen Stufen
+* Sind Zensierungen vorhanden, so wird die geschätzte Überlebenswahrscheinlichkeit nie den Wert O annehmen.
+
+### Intervallzensierungen / Cutler&Ederer-Methode
+
+* In aller Regel gibt es im Rahmen von Studien festgelegte Untersuchungszeitpunkte.
+* Der genaue Eventzeitpunkt ist dabei nicht zu ermitteln.
+
+#### Sterbetafeln
+
+* Es liegen $k$ gleich lange Intervalle vor.
+* **Annahme**: Ereignisse und Zensierungen sind gleichmäßig über das Intervall $k$ verteilt.
+* Im Mittelpunkt des k-ten Intervalls sind $n_k = n_k^{'} - \frac{c_k}{2}$ Patienten unter Risiko. $n_k^{'}$ Patienten sind zu Beginn des Intervalls $k$ unter Risiko und $c_k$ ist die Anzahl an Patienten, die im k-ten Intervall zensiert werden.
+
+### Zweigruppenvergleich für Überlebenszeiten
+
+Das Ziel ist, die Überlebenswahrscheinlichkeiten zwischen zwei Gruppen zu vergleichen. Erreicht wird dies durch den **nicht parametrischen Logrank-Test**. Voraussetzung hierfür ist die **Proportional-Hazard-Annahme**. Vor allem dürfen sich die Kaplan-Meier-Kruven nicht überkreuzen.\
+Die Nullhypothese lautet $$H_0: h_1(t) = h_2(t)$$
+
+#### Anwendung des Logrank-Tests
+
+* Zählen der Ereignisse je Ereigniszeitpunkt
+* Berechnung der erwarteten Anzahl an Ereignissen unter der Nullhypothese
+* Summieren der erwarteten und beobachteten Ereignisse je Gruppe
+* Vergleich der beobachteten und erwarteten Anzahl an Ereignissen anhand des Chi-Quadrat-Tests
+$$\chi^2 = \frac{(D_1-E_1)^2}{E_1} + \frac{(D_2-E_2)^2}{E_2}$$
+* Die Teststatistik ist $\chi^2$-verteilt mit einem Freiheitsgrad (bzw. $m-1$ bei $m$ Gruppen)
+
+
+### Hazard Ratio
+
+* Effektmaß für den Unterschied zwischen zwei Gruppen. Der Logrank-Test stellt einen solchen nicht zur Verfügung.
+* Das Hazard Ratio ist definiert als
+$$HR = \frac{\frac{D_1}{E_1}}{\frac{D_2}{E_2}}$$
+* Interpretation: Das Risiko des Event-Eintritts ist in der Interventionsgruppe $HR$-mal das Risiko der Kontrollgruppe.
+
