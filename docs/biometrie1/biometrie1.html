@@ -148,13 +148,11 @@ window.Quarto = {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Inhalt</h2>
    
   <ul>
-  <li><a href="#biometrie-i" id="toc-biometrie-i" class="nav-link active" data-scroll-target="#biometrie-i">Biometrie I</a>
-  <ul class="collapse">
-  <li><a href="#einführung" id="toc-einführung" class="nav-link" data-scroll-target="#einführung">Einführung</a>
+  <li><a href="#einführung" id="toc-einführung" class="nav-link active" data-scroll-target="#einführung">Einführung</a>
   <ul class="collapse">
   <li><a href="#relevante-journals" id="toc-relevante-journals" class="nav-link" data-scroll-target="#relevante-journals">Relevante Journals</a></li>
   <li><a href="#modellierung-in-der-biostatistik" id="toc-modellierung-in-der-biostatistik" class="nav-link" data-scroll-target="#modellierung-in-der-biostatistik">Modellierung in der Biostatistik</a></li>
@@ -231,7 +229,13 @@ window.Quarto = {
   <li><a href="#zweigruppenvergleich-für-überlebenszeiten" id="toc-zweigruppenvergleich-für-überlebenszeiten" class="nav-link" data-scroll-target="#zweigruppenvergleich-für-überlebenszeiten">Zweigruppenvergleich für Überlebenszeiten</a></li>
   <li><a href="#hazard-ratio" id="toc-hazard-ratio" class="nav-link" data-scroll-target="#hazard-ratio">Hazard Ratio</a></li>
   </ul></li>
+  <li><a href="#einführung-in-die-bayesianische-statistik" id="toc-einführung-in-die-bayesianische-statistik" class="nav-link" data-scroll-target="#einführung-in-die-bayesianische-statistik">Einführung in die Bayesianische Statistik</a>
+  <ul class="collapse">
+  <li><a href="#theorem-von-bayes" id="toc-theorem-von-bayes" class="nav-link" data-scroll-target="#theorem-von-bayes">Theorem von Bayes</a></li>
+  <li><a href="#nomenklatur" id="toc-nomenklatur" class="nav-link" data-scroll-target="#nomenklatur">Nomenklatur</a></li>
+  <li><a href="#allgemeiner-workflow" id="toc-allgemeiner-workflow" class="nav-link" data-scroll-target="#allgemeiner-workflow">Allgemeiner Workflow</a></li>
   </ul></li>
+  <li><a href="#übungen" id="toc-übungen" class="nav-link" data-scroll-target="#übungen">Übungen</a></li>
   </ul>
 </nav>
     </div>
@@ -241,8 +245,6 @@ window.Quarto = {
 
 
 
-<section id="biometrie-i" class="level1">
-<h1>Biometrie I</h1>
 <section id="einführung" class="level2">
 <h2 class="anchored" data-anchor-id="einführung">Einführung</h2>
 <section id="relevante-journals" class="level3">
@@ -1683,10 +1685,142 @@ Die Nullhypothese lautet <span class="math display">\[H_0: h_1(t) = h_2(t)\]</sp
 <li>Das Hazard Ratio ist definiert als <span class="math display">\[HR = \frac{\frac{D_1}{E_1}}{\frac{D_2}{E_2}}\]</span></li>
 <li>Interpretation: Das Risiko des Event-Eintritts ist in der Interventionsgruppe <span class="math inline">\(HR\)</span>-mal das Risiko der Kontrollgruppe.</li>
 </ul>
-
-
 </section>
 </section>
+<section id="einführung-in-die-bayesianische-statistik" class="level2">
+<h2 class="anchored" data-anchor-id="einführung-in-die-bayesianische-statistik">Einführung in die Bayesianische Statistik</h2>
+<p>Was genau bedeutet z.B. die Angabe eines Konfidenzintervalls?</p>
+<section id="der-frequentistische-ansatz" class="level4">
+<h4 class="anchored" data-anchor-id="der-frequentistische-ansatz">Der frequentistische Ansatz</h4>
+<ul>
+<li>Ein (wahrer) Parameter ist fixiert, aber unbekannt und unbestimmbar.</li>
+<li>Die erhobenen Daten sind Ergebnisse eines Zufalssexperiments</li>
+<li>Wenn man dieselbe Studie viele Male machen würde, läge der wahre Wert in 95% der Fälle im Konfidenzintervall</li>
+<li>Für jeden einzelnen Fall liegt die Wahrheit entweder im Intervall oder nicht (0,1)</li>
+</ul>
+</section>
+<section id="bayes" class="level4">
+<h4 class="anchored" data-anchor-id="bayes">Bayes</h4>
+<ul>
+<li>Ein Parameter ist unsicher und Wahrscheinlichkeitsverteilungen drücken aus, wie sehr man dem Maß des Parameters vertrtaut</li>
+<li>Erhobene Daten sind fixiert</li>
+<li>Das 95% Konfidenzintervall gibt tatsächlich eine 95%-Chance an, dass die Wahrheit im Intervall liegt.</li>
+</ul>
+</section>
+<section id="theorem-von-bayes" class="level3">
+<h3 class="anchored" data-anchor-id="theorem-von-bayes">Theorem von Bayes</h3>
+<p><span class="math display">\[P(A \mid B) = \frac{P(B \mid A)P(A)}{P(B)}\]</span></p>
+<section id="beispiel-biomarkertest" class="level4">
+<h4 class="anchored" data-anchor-id="beispiel-biomarkertest">Beispiel Biomarkertest</h4>
+<ul>
+<li>Sensitivität und Spezifität sind in erster Linie Aussagen über einen Test, nicht über den Patienten.</li>
+<li>Zusammen mit der (bekannten oder geschätzten) Prävalenz der Krankheit in der Bevölkerung, kann ein individuelles Risiko abgeschätzt werden</li>
+<li>Sensitivität und individuelles Erkrankungsrisiko gehen oft weit auseinander, abhängig von der Prävalenz in der untersuchten Population</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Gesetze der bedingten Wahrscheinlichkeiten wiederholen!</p>
+</div>
+</div>
+</section>
+<section id="verallgemeinerter-satz-von-bayes" class="level4">
+<h4 class="anchored" data-anchor-id="verallgemeinerter-satz-von-bayes">Verallgemeinerter Satz von Bayes</h4>
+<p><span class="math display">\[P(\theta \mid D) = \frac{P(D \mid \theta)P(\theta)}{P(D)}\]</span> <span class="math inline">\(\theta\)</span>: der Parameter, für den wir die posterior Wahrscheinlichkeit berechnen <span class="math inline">\(D\)</span>: die beobachteten Daten</p>
+</section>
+</section>
+<section id="nomenklatur" class="level3">
+<h3 class="anchored" data-anchor-id="nomenklatur">Nomenklatur</h3>
+<ul>
+<li><span class="math inline">\(f(\theta)\)</span>: Prior - Annahmen über den Parameter vor dem Experiment</li>
+<li><span class="math inline">\(f(D \mid \theta)\)</span> - likelihood: Wahrscheinlichkeit der beobachteten Daten</li>
+<li><span class="math inline">\(f(D)\)</span> - marginal likelihood: normalisierende Konstante</li>
+<li><span class="math inline">\(f(\theta \mid D)\)</span> - posterior: die aktualisierte Annahme über <span class="math inline">\(\theta\)</span>, nachdem die Daten gesehen wurden.</li>
+</ul>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Übung:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"><span class="math inline">\(\theta\)</span></th>
+<th style="text-align: center;">0.2</th>
+<th style="text-align: center;">0.6</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(P(\theta)\)</span></td>
+<td style="text-align: center;">0.70</td>
+<td style="text-align: center;">0.30</td>
+</tr>
+</tbody>
+</table>
+<p>a: Berechne die likelihood der beiden prior gegeben die Beobachtungen<br>
+b: Summiere die beiden Produkte “prior x likelihood”. Dies ist die marginal likelihood <span class="math inline">\(P(y)\)</span> aus der allgemeinen Formel<br>
+c: Dividiere jeden “prior x likelihood”-Wert durch diese Summe, um den posterior <span class="math inline">\(P(\theta \mid y)\)</span> zu erhalten.<br>
+d: Welches <span class="math inline">\(\theta\)</span> hat jetzt die höhere posterior probability?<br>
+e: Berechne den posterior mean <span class="math inline">\(\sum_\theta \theta \cdot P(\theta \mid y)\)</span></p>
+</div>
+</div>
+</div>
+<p><strong>Lösungen</strong>: a: likelihood: <span class="math inline">\(f(D \mid \theta)_1 = \binom{n}{k} p^k \cdot (1-p)^{n-k}\)</span><br>
+<span class="math inline">\(f(0.2) = 0.0064\)</span><br>
+<span class="math inline">\(f(0.6) = 0.2592\)</span><br>
+</p>
+<p>b: <span class="math inline">\(P(y) = P(0.2) \cdot f(0.2) + P(0.6) \cdot f(0.2) = 0.7 * 0.0064 + 0.3 * 0.2592= 0.0045 + 0.0778 = 0.0823\)</span><br>
+c: für 1: <span class="math inline">\(\frac{0.0045}{0.0823} = 0.054\)</span><br>
+für 2: <span class="math inline">\(\frac{0.0778}{0.0823} = 0.946\)</span><br>
+e: prior mean: <span class="math inline">\(0.2*0.7 + 0.6*0.3\)</span><br>
+posterior mean: <span class="math inline">\(0.2 * 0.054 + 0.6*0.946\)</span></p>
+<section id="conjugate-update-rule" class="level4">
+<h4 class="anchored" data-anchor-id="conjugate-update-rule">Conjugate Update Rule</h4>
+<p>Ein posterior kann mit neuen Daten einfach geupdatet werden, wenn <span class="math inline">\(y \mid \theta\)</span> binomialverteilt ist und für <span class="math inline">\(\theta\)</span> eine <a href="https://de.wikipedia.org/wiki/Beta-Verteilung">Beta-Verteilung</a> angenommen wird: <span class="math display">\[\theta \sim Beta(a,b) \xrightarrow{\text{y successes out of n}} \theta \mid y \sim Beta(a+y, b+n-y)\]</span></p>
+</section>
+<section id="berichtete-größen" class="level4">
+<h4 class="anchored" data-anchor-id="berichtete-größen">Berichtete Größen</h4>
+<ul>
+<li>Punktschätzer: Mittelwert der posterior distribution</li>
+<li>Quantile der Verteilung, z.B. 95%-Quantile</li>
+<li>Credible Interval: ein Intervall, das eine definierte Wahrscheinlichkeitsmasse umfasst, z.B. 95%</li>
+<li>Heghest Density Interval: Das engste Intervall, das 95% der Masse enthält.</li>
+</ul>
+</section>
+</section>
+<section id="allgemeiner-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="allgemeiner-workflow">Allgemeiner Workflow</h3>
+<ol type="1">
+<li>Likelihood besitmmen</li>
+<li>Prior bestimmen</li>
+<li>Posterior berechnen</li>
+<li>Posterior zusammenfassen</li>
+<li>Posterior berichten</li>
+</ol>
+</section>
+</section>
+<section id="übungen" class="level2">
+<h2 class="anchored" data-anchor-id="übungen">Übungen</h2>
+<p>1.a<br>
+</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p =</span> <span class="fl">0.975</span>, <span class="dv">60</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.000298</code></pre>
+</div>
+</div>
+
+
 </section>
 
 </main> <!-- /main -->

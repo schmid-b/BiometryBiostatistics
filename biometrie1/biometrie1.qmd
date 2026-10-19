@@ -1173,3 +1173,102 @@ $$\chi^2 = \frac{(D_1-E_1)^2}{E_1} + \frac{(D_2-E_2)^2}{E_2}$$
 $$HR = \frac{\frac{D_1}{E_1}}{\frac{D_2}{E_2}}$$
 * Interpretation: Das Risiko des Event-Eintritts ist in der Interventionsgruppe $HR$-mal das Risiko der Kontrollgruppe.
 
+## Einführung in die Bayesianische Statistik
+
+Was genau bedeutet z.B. die Angabe eines Konfidenzintervalls?
+
+#### Der frequentistische Ansatz
+
+* Ein (wahrer) Parameter ist fixiert, aber unbekannt und unbestimmbar.
+* Die erhobenen Daten sind Ergebnisse eines Zufalssexperiments
+* Wenn man dieselbe Studie viele Male machen würde, läge der wahre Wert in 95% der Fälle im Konfidenzintervall
+* Für jeden einzelnen Fall liegt die Wahrheit entweder im Intervall oder nicht (0,1)
+
+#### Bayes
+
+* Ein Parameter ist unsicher und Wahrscheinlichkeitsverteilungen drücken aus, wie sehr man dem Maß des Parameters vertrtaut
+* Erhobene Daten sind fixiert
+* Das 95% Konfidenzintervall gibt tatsächlich eine 95%-Chance an, dass die Wahrheit im Intervall liegt.
+
+### Theorem von Bayes
+
+$$P(A \mid B) = \frac{P(B \mid A)P(A)}{P(B)}$$
+
+#### Beispiel Biomarkertest
+
+* Sensitivität und Spezifität sind in erster Linie Aussagen über einen Test, nicht über den Patienten.
+* Zusammen mit der (bekannten oder geschätzten) Prävalenz der Krankheit in der Bevölkerung, kann ein individuelles Risiko abgeschätzt werden
+* Sensitivität und individuelles Erkrankungsrisiko gehen oft weit auseinander, abhängig von der Prävalenz in der untersuchten Population
+
+::: {.callout-important}
+Gesetze der bedingten Wahrscheinlichkeiten wiederholen!
+:::
+
+#### Verallgemeinerter Satz von Bayes
+
+$$P(\theta \mid D) = \frac{P(D \mid \theta)P(\theta)}{P(D)}$$
+$\theta$: der Parameter, für den wir die posterior Wahrscheinlichkeit berechnen
+$D$: die beobachteten Daten
+
+### Nomenklatur
+
+* $f(\theta)$: Prior - Annahmen über den Parameter vor dem Experiment
+* $f(D \mid \theta)$ - likelihood: Wahrscheinlichkeit der beobachteten Daten
+* $f(D)$ - marginal likelihood: normalisierende Konstante
+* $f(\theta \mid D)$ - posterior: die aktualisierte Annahme über $\theta$, nachdem die Daten gesehen wurden.
+
+::: {.callout}
+Übung:
+
+| $\theta$ | 0.2 | 0.6 |
+|:----|:----:|:----:|
+| $P(\theta)$ | 0.70 | 0.30 |
+
+a: Berechne die likelihood der beiden prior gegeben die Beobachtungen\
+b: Summiere die beiden Produkte "prior x likelihood". Dies ist die marginal likelihood $P(y)$ aus der allgemeinen Formel\
+c: Dividiere jeden "prior x likelihood"-Wert durch diese Summe, um den posterior $P(\theta \mid y)$ zu erhalten.\
+d: Welches $\theta$ hat jetzt die höhere posterior probability?\
+e: Berechne den posterior mean $\sum_\theta \theta \cdot P(\theta \mid y)$
+
+:::
+
+**Lösungen**:
+a: likelihood: $f(D \mid \theta)_1 = \binom{n}{k} p^k \cdot (1-p)^{n-k}$ \
+$f(0.2) = 0.0064$ \
+$f(0.6) = 0.2592$ \
+
+b: $P(y) = P(0.2) \cdot f(0.2) + P(0.6) \cdot f(0.2) = 0.7 * 0.0064 + 0.3 * 0.2592= 0.0045 + 0.0778 = 0.0823$\
+c: für 1: $\frac{0.0045}{0.0823} = 0.054$\
+für 2: $\frac{0.0778}{0.0823} = 0.946$\
+e: prior mean: $0.2*0.7 + 0.6*0.3$\
+posterior mean: $0.2 * 0.054 + 0.6*0.946$
+
+
+
+#### Conjugate Update Rule
+
+Ein posterior kann mit neuen Daten einfach geupdatet werden, wenn $y \mid \theta$ binomialverteilt ist und für $\theta$ eine [Beta-Verteilung](https://de.wikipedia.org/wiki/Beta-Verteilung) angenommen wird:
+$$\theta \sim Beta(a,b) \xrightarrow{\text{y successes out of n}} \theta \mid y \sim Beta(a+y, b+n-y)$$
+
+#### Berichtete Größen
+
+* Punktschätzer: Mittelwert der posterior distribution
+* Quantile der Verteilung, z.B. 95%-Quantile
+* Credible Interval: ein Intervall, das eine definierte Wahrscheinlichkeitsmasse umfasst, z.B. 95%
+* Heghest Density Interval: Das engste Intervall, das 95% der Masse enthält.
+
+### Allgemeiner Workflow
+
+1. Likelihood besitmmen
+2. Prior bestimmen
+3. Posterior berechnen
+4. Posterior zusammenfassen
+5. Posterior berichten
+
+## Übungen
+
+1.a\
+
+```{r}
+qt(p = 0.975, 60)
+```
